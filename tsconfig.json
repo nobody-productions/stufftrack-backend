@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es2022",                                  /* js language */
+    "module": "commonjs",                                /* module code generated. */
+    "esModuleInterop": true,                             /* additional JavaScript to import CommonJS modules. */
+    "forceConsistentCasingInFileNames": true,            /* casing is correct in imports. */
+    "skipLibCheck": true,                                /* skip type checking all .d.ts files. */
+  }
+}
