@@ -37,3 +37,22 @@ export const GetUser = async (req: Request, res: Response) => {
     res.send(user)
 }
 
+// create a user with default password 1234
+export const CreateUser = async(req: Request, res: Response) => {
+    const {role_id, ...body} = req.body;
+    const hashedPassword = await bcryptjs.hash('1234', 16);
+    const repository = getManager().getRepository(User);
+
+    const {password, ...user} = await repository.save(
+        {
+            ...body,
+            password: hashedPassword,
+            role: {
+                id: role_id
+            }
+        }
+    );
+
+    res.status(201).send(user);
+}
+
