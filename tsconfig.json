@@ -8,6 +8,9 @@
 
     /* typeorm stuff */
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+
+    /* faker-js */
+    "moduleResolution": "Node"
   }
 }
