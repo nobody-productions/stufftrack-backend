@@ -29,3 +29,11 @@ export const Users = async (req: Request, res: Response) => {
     });
 }
 
+// retrieve a user by sending its id
+export const GetUser = async (req: Request, res: Response) => {
+    const repository = getManager().getRepository(User);
+    const {password, ...user} = await repository.findOne({where:
+            {id: parseInt(req.params.id)}, relations: ['role']});
+    res.send(user)
+}
+
