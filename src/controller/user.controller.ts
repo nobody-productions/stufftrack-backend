@@ -56,3 +56,20 @@ export const CreateUser = async(req: Request, res: Response) => {
     res.status(201).send(user);
 }
 
+export const UpdateUser = async(req: Request, res: Response) => {
+    const {role_id, ...body} = req.body;
+
+    const repository = getManager().getRepository(User);
+
+    await repository.update(req.params.id, {
+        ...body,
+        role: {
+            id: role_id
+        }
+    });
+
+    const {password, ...user} = await repository.findOne({where:
+            {id: parseInt(req.params.id)}, relations: ['role']});
+
+    res.status(202).send(user);
+ }
