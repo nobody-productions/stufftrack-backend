@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { CreateUser, GetUser, UpdateUser, Users } from "./controller/user.controller";
+import { CreateUser, DeleteUser, GetUser, UpdateUser, Users } from "./controller/user.controller";
 
 export const routes = (router: Router) => {
     // user routes
@@ -7,5 +7,6 @@ export const routes = (router: Router) => {
     router.get("/api/v1/users/:id", GetUser)
     router.post('/api/v1/users', CreateUser)
     router.put("/api/v1/users/:id", UpdateUser)
+    router.delete("/api/v1/users/:id", DeleteUser)
 
 }
