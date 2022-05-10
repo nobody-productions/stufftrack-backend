@@ -5,5 +5,9 @@
     "esModuleInterop": true,                             /* additional JavaScript to import CommonJS modules. */
     "forceConsistentCasingInFileNames": true,            /* casing is correct in imports. */
     "skipLibCheck": true,                                /* skip type checking all .d.ts files. */
+
+    /* typeorm stuff */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   }
 }
