@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity()
+@Entity({name: 'vg_platform'})
 export class Platform {
     @PrimaryGeneratedColumn()
     id: number;

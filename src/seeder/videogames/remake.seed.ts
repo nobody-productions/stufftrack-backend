@@ -1,5 +1,5 @@
 import {createConnections, getManager} from "typeorm";
-import { Videogame } from "../entity/videogames/videogame.entity";
+import { Videogame } from "../../entity/videogames/videogame.entity";
 
 createConnections().then(async () => {
     // pokemon zaffiro alpha é remake di pokemon zaffiro

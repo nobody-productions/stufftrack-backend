@@ -4,7 +4,7 @@ import {Developer} from "./developer.entity";
 import { User } from '../user.entity';
 import { Genre } from './genre.entity';
 
-@Entity()
+@Entity('vg_videogame')
 export class Videogame {
     @PrimaryGeneratedColumn()
     id: number
@@ -21,7 +21,7 @@ export class Videogame {
     // user library
     @ManyToMany(() => User)
     @JoinTable({
-        name: 'user_videogame',
+        name: 'vg_user_videogame',
         joinColumn: { name: 'user_id', referencedColumnName: 'id'},
         inverseJoinColumn: {name: 'videogame_id', referencedColumnName: 'id'}
     })
@@ -29,7 +29,7 @@ export class Videogame {
 
     @ManyToMany(() => Platform)
     @JoinTable({
-        name: 'videogame_platform',
+        name: 'vg_videogame_platform',
         joinColumn: { name: 'videogame_id', referencedColumnName: 'id'},
         inverseJoinColumn: {name: 'platform_id', referencedColumnName: 'id'}
     })
@@ -37,7 +37,7 @@ export class Videogame {
 
     @ManyToMany(() => Developer)
     @JoinTable({
-        name: 'videogame_developer',
+        name: 'vg_videogame_developer',
         joinColumn: { name: 'videogame_id', referencedColumnName: 'id'},
         inverseJoinColumn: {name: 'developer_id', referencedColumnName: 'id'}
     })
@@ -45,7 +45,7 @@ export class Videogame {
 
     @ManyToMany(() => Genre)
     @JoinTable({
-        name: 'videogame_genre',
+        name: 'vg_videogame_genre',
         joinColumn: { name: 'videogame_id', referencedColumnName: 'id'},
         inverseJoinColumn: {name: 'genre_id', referencedColumnName: 'id'}
     })
@@ -53,7 +53,7 @@ export class Videogame {
 
     @ManyToMany(() => Videogame)
     @JoinTable({
-        name: 'remake',
+        name: 'vg_remake',
         joinColumn: { name: 'original', referencedColumnName: 'id'},
         inverseJoinColumn: {name: 'remake', referencedColumnName: 'id'}
     })

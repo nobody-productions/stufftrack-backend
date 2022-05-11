@@ -2,7 +2,7 @@ import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, Prima
 import { User } from "../user.entity";
 import {Videogame} from "./videogame.entity";
 
-@Entity()
+@Entity({name: 'vg_rating'})
 export class Rating {
     @PrimaryGeneratedColumn()
     id: number;
