@@ -3,7 +3,7 @@ import { getManager } from "typeorm";
 import {RegisterValidation} from "../validation/register.validation"
 import { User } from "../entity/user.entity";
 import bcryptjs from "bcryptjs";
-import {sign, verify} from "jsonwebtoken";
+import {sign} from "jsonwebtoken";
 
 // route: registrazione nuovo utente (lato utente)
 export const Register = async (req: Request, res: Response) => {
@@ -94,17 +94,32 @@ export const Logout = async (req: Request, res: Response) => {
 
 // route: profilo
 export const Profile = async (req: Request, res: Response) => {
-    const jwt = req.cookies['jwt'];
-    const payload: any = verify(jwt, "secret");
+    const {password, active, ...user} = req['user'];
+    res.send(user)
+}
 
-    if (!payload) {
-        return res.status(401).send({
-            message: "unauthenticated"
-        });
+// aggiornamento: informazioni e password
+export const UpdateInfo = async (req: Request, res: Response) => {
+    const user = req['user'];   // dal middleware
+    const repository = getManager().getRepository(User);
+    await repository.update(user.id, req.body);
+    const {password, ...data} = await repository.findOne({where: user.id});
+    res.send(data);
+}
+
+
+export const UpdatePassword = async (req: Request, res: Response) => {
+    const user = req['user'];   // dal middleware
+
+    // chk: password sono diverse
+    if (req.body.password !== req.body.password_confirm) {
+        return res.status(400).send({message: "password's do not match"});
     }
 
     const repository = getManager().getRepository(User);
+    await repository.update(user.id, {password: await bcryptjs.hash(req.body.password, 10)});
 
-    const {password, ...user} = await repository.findOne({where: payload.id});
-    res.send(user)
+    const {password, ...data} = user;
+
+    res.send(data);
 }
