@@ -4,7 +4,8 @@
   "description": "A simple backend for StuffTracker.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.ts"
+    "start": "nodemon src/index.ts",
+    "seed:developer": "ts-node src/seeder/developer.seed.ts"
   },
   "keywords": [],
   "author": "Damiano Gualandri",
