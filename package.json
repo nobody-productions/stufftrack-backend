@@ -8,6 +8,7 @@
     "seed:developer": "ts-node src/seeder/developer.seed.ts",
     "seed:user": "ts-node src/seeder/user.seed.ts",
     "seed:platform": "ts-node src/seeder/platform.seed.ts",
+    "seed:videogame": "ts-node src/seeder/videogame.seed.ts",
     "seed:genre": "ts-node src/seeder/genre.seed.ts"
   },
   "keywords": [],
