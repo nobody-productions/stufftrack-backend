@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "seed:developer": "ts-node src/seeder/videogames/developer.seed.ts",
+    "seed:developer": "ts-node src/seeder/videogame/developer.seed.ts",
     "seed:user": "ts-node src/seeder/user.seed.ts",
-    "seed:platform": "ts-node src/seeder/videogames/platform.seed.ts",
-    "seed:videogame": "ts-node src/seeder/videogames/videogame.seed.ts",
-    "seed:genre": "ts-node src/seeder/videogames/genre.seed.ts",
-    "seed:remake": "ts-node src/seeder/videogames/remake.seed.ts"
+    "seed:platform": "ts-node src/seeder/videogame/platform.seed.ts",
+    "seed:videogame": "ts-node src/seeder/videogame/videogame.seed.ts",
+    "seed:genre": "ts-node src/seeder/videogame/genre.seed.ts",
+    "seed:remake": "ts-node src/seeder/videogame/remake.seed.ts"
   },
   "keywords": [],
   "author": "Damiano Gualandri",

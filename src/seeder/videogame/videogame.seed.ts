@@ -1,5 +1,5 @@
 import {createConnections, getManager} from "typeorm";
-import { Videogame} from "../../entity/videogames/videogame.entity";
+import { Videogame} from "../../entity/videogame/videogame.entity";
 
 createConnections().then(async () => {
     const repository = getManager().getRepository(Videogame);
