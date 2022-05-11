@@ -1,10 +1,10 @@
 import {createConnections, getManager} from "typeorm";
 import bcryptjs from "bcryptjs";
 import {User} from "../entity/user.entity";
-import {Videogame} from "../entity/videogames/videogame.entity";
+import {Role} from "../entity/role.entity";
 
 createConnections().then(async () => {
-    const roleRepository = getManager().getRepository(Videogame)
+    const roleRepository = getManager().getRepository(Role)
     const targetRole = await roleRepository.findOne({where: {id: 2}})
 
     const repository = getManager().getRepository(User);
