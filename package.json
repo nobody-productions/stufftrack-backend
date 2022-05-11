@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "seed:developer": "ts-node src/seeder/developer.seed.ts",
-    "seed:user": "ts-node src/seeder/user.seed.ts"
+    "seed:user": "ts-node src/seeder/user.seed.ts",
+    "seed:platform": "ts-node src/seeder/platform.seed.ts"
   },
   "keywords": [],
   "author": "Damiano Gualandri",
