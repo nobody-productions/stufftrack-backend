@@ -1,8 +1,12 @@
 import {createConnections, getManager} from "typeorm";
 import bcryptjs from "bcryptjs";
 import {User} from "../entity/user.entity";
+import {Videogame} from "../entity/videogames/videogame.entity";
 
 createConnections().then(async () => {
+    const roleRepository = getManager().getRepository(Videogame)
+    const targetRole = await roleRepository.findOne({where: {id: 2}})
+
     const repository = getManager().getRepository(User);
 
     await repository.save({
@@ -11,7 +15,8 @@ createConnections().then(async () => {
         nickname: "dag7",
         propic: "/useruploads/default.png",
         bio: "Mi piacciono i videogiochi ma odio Toad di Mario Kart. Firma anche tu la petizione per eliminarlo dal gioco: change.org/eliminiamo-toad-da-mario-kart/",
-        active: true
+        active: true,
+        role: targetRole
     })
 
     await repository.save({
@@ -20,7 +25,8 @@ createConnections().then(async () => {
         nickname: "Lollo",
         propic: "/useruploads/default.png",
         bio: "Mi piace testare i giochi su diversi dispositivi Android, i Mediatek fanno schifo!",
-        active: true
+        active: true,
+        role: targetRole
     })
 
     await repository.save({
@@ -29,7 +35,8 @@ createConnections().then(async () => {
         nickname: "Krubby Krubbone",
         propic: "/useruploads/default.png",
         bio: "Ciao, mi piacciono i soldi.",
-        active: true
+        active: true,
+        role: targetRole
     })
 
     await repository.save({
@@ -38,7 +45,8 @@ createConnections().then(async () => {
         nickname: "Spongy",
         propic: "/useruploads/default.png",
         bio: "Adoro dare da mangiare a Gary, la mia lumachina. I miei giochi preferiti sono i platform!",
-        active: true
+        active: true,
+        role: targetRole
     })
 
     await repository.save({
@@ -47,7 +55,8 @@ createConnections().then(async () => {
         nickname: "Patrick Non Stella",
         propic: "/useruploads/default.png",
         bio: "WADJIOA3FN9W3FJ390FJ90FJWIEFSKJFS EFJSIEOJF8FJ 3WJF3I FWIOJFIWOEJF W39F93W 0F CIAO",
-        active: true
+        active: true,
+        role: targetRole
     })
 
     await repository.save({
@@ -56,7 +65,8 @@ createConnections().then(async () => {
         nickname: "Mastro Squiddi",
         propic: "/useruploads/default.png",
         bio: "Quando non suono il clarinetto, sono il campione mondiale di Osu. Gioco solo a giochi musicali.",
-        active: true
+        active: true,
+        role: targetRole
     })
 
     await repository.save({
@@ -65,10 +75,9 @@ createConnections().then(async () => {
         nickname: "TheShadow2030",
         propic: "/useruploads/default.png",
         bio: "Sono una persona temuta e rispettata su Splatoon, ma adoro i gdr o i giochi come God of War.",
-        active: true
+        active: true,
+        role: targetRole
     })
 
-    //TODO -> IMPORTANTE!!!! -> mancano i ruoli, mo' li setto manualmente io ma di default devono stare a 2
-    
     process.exit(0);
 })
