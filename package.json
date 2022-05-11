@@ -9,7 +9,8 @@
     "seed:user": "ts-node src/seeder/user.seed.ts",
     "seed:platform": "ts-node src/seeder/platform.seed.ts",
     "seed:videogame": "ts-node src/seeder/videogame.seed.ts",
-    "seed:genre": "ts-node src/seeder/genre.seed.ts"
+    "seed:genre": "ts-node src/seeder/genre.seed.ts",
+    "seed:remake": "ts-node src/seeder/remake.seed.ts"
   },
   "keywords": [],
   "author": "Damiano Gualandri",
