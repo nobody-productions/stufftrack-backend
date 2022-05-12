@@ -70,12 +70,15 @@ export class Videogame {
 
 
 @Entity('vg_user_videogame')
-export class VideogameUserVideogame {
-    @CreateDateColumn({type: 'timestamp'})
-    createdAt: Date
+export class UserVideogame {
+    @CreateDateColumn({type: 'timestamptz'})
+    created_at: Date
 
-    @UpdateDateColumn({type: 'timestamp'})
-    updatedAt: Date
+    @UpdateDateColumn({type: 'timestamptz'})
+    updated_at: Date
+
+    @CreateDateColumn({nullable: true, type: 'timestamptz'})
+    finished: Date
 
     @Column({default: 0})
     hours: number;
@@ -87,12 +90,12 @@ export class VideogameUserVideogame {
     status: Status;
 
     @ManyToOne(() => User)
-    @JoinColumn({name: "user_id"})
+    @JoinColumn({name: "user"})
     @Column({primary: true})
-    user_id: number
+    user: User
 
     @ManyToOne(() => Videogame)
-    @JoinColumn({name: "videogame_id"})
+    @JoinColumn({name: "videogame"})
     @Column({primary: true})
-    videogame_id: number
+    videogame: Videogame
 }
