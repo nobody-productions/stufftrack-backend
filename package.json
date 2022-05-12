@@ -12,7 +12,8 @@
     "seed:genre": "ts-node src/seeder/videogame/genre.seed.ts",
     "seed:remake": "ts-node src/seeder/videogame/remake.seed.ts",
     "seed:rating": "ts-node src/seeder/videogame/rating.seed.ts",
-    "seed:user-lib": "ts-node src/seeder/videogame/user.library.seed.ts"
+    "seed:user-lib": "ts-node src/seeder/videogame/user.library.seed.ts",
+    "populate-vg": "npm run seed:platform && npm run seed:developer && npm run seed:genre && npm run seed:videogame && npm run seed:remake && npm run seed:rating && npm run seed:user-lib"
   },
   "keywords": [],
   "author": "Damiano Gualandri",
