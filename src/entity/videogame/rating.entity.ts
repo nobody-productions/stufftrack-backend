@@ -1,4 +1,13 @@
-import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import { User } from "../user.entity";
 import {Videogame} from "./videogame.entity";
 
@@ -19,8 +28,11 @@ export class Rating {
     @Column()
     is_public_ranking: boolean
 
-    @CreateDateColumn({type: 'timestamptz'})
-    when: Date
+    @CreateDateColumn({ type: 'timestamptz' })
+    createdAt: Date
+
+    @UpdateDateColumn({ type: 'timestamptz' })
+    updatedAt: Date
 
     @ManyToOne(() => User, user => user.id)
     @JoinColumn({name: "user_id"})
