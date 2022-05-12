@@ -101,4 +101,10 @@ export class UserVideogame {
     @JoinColumn({name: "videogame"})
     @Column({primary: true})
     videogame: Videogame
+
+    @ManyToOne(() => Platform)
+    @JoinColumn({name: "platform"})
+    @Column({primary: true})
+    platform: Platform
+
 }
