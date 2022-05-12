@@ -35,6 +35,9 @@ export class Videogame {
     @Column()
     year: number
 
+    @Column({default: "/images/videogames/cover/default_videogame.png"})
+    image: string
+
     @ManyToMany(() => Platform)
     @JoinTable({
         name: 'vg_videogame_platform',
