@@ -6,8 +6,9 @@
 
 import {Request, Response} from "express";
 import {createQueryBuilder, getManager} from "typeorm";
-import {UserVideogame} from "../../entity/videogame/videogame.entity";
+import {UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
+import {User} from "../../entity/user.entity";
 
 // get all videogames in user library
 export const VideogameUserLibrary = async (req: Request, res: Response) => {
@@ -71,6 +72,17 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
     if (result !== null)
         result['videogame'].platform = platOnlyRes
 
-    res.send(result)
+    res.status(200).send(result)
 }
 
+export const CreateVideogameUserLibrary = async(req: Request, res: Response) => {
+    const repository = getManager().getRepository(UserVideogame);
+
+    // forza lo user id dell'utente loggato
+    req.body.id = req['user'].id
+
+    const videogame = await repository.save(req.body);
+
+    // TODO: sistemare in caso di duplicati
+    res.status(201).send(videogame);
+}

@@ -4,6 +4,7 @@ import {AuthMiddleware} from "./middleware/auth.middleware";
 import {Videogames} from "./controller/videogames/videogame.controller";
 import {GetUser} from "./controller/user.controller";
 import {
+    CreateVideogameUserLibrary,
     GetVideogameUserLibrary,
     VideogameUserLibrary
 } from "./controller/videogames/videogame.user.library.controller";
@@ -24,7 +25,8 @@ export const routes = (router: Router) => {
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)
 
     // user videogames
-    router.get('/api/v1/libraries/videogames/', AuthMiddleware, VideogameUserLibrary)
+    router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)
     router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary)
+    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary)
 
 }
