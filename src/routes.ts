@@ -3,6 +3,9 @@ import {Login, Register, Logout, Profile, UpdateInfo, UpdatePassword } from "./c
 import {AuthMiddleware} from "./middleware/auth.middleware";
 import {Videogames} from "./controller/videogames/videogame.controller";
 import {GetUser} from "./controller/user.controller";
+import {
+    VideogameUserLibrary
+} from "./controller/videogames/videogame.user.library.controller";
 
 export const routes = (router: Router) => {
     // auth routes
@@ -16,7 +19,10 @@ export const routes = (router: Router) => {
     // user routes
     router.get("/api/v1/users/:id", AuthMiddleware, GetUser)
 
-
-    // videogames route
+    // videogames
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)
+
+    // user videogames
+    router.get('/api/v1/libraries/videogames/', AuthMiddleware, VideogameUserLibrary)
+
 }
