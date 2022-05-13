@@ -1,9 +1,3 @@
-/*
-- /api/v1/libraries/videogames/                       visualizzare / inserire / modificare / rimuovere un videogioco nella collezione dell'utente
-- /api/v1/libraries/videogames/id/remakes             visualizzare / inserire / modificare / rimuovere un remake nella collezione dell'utente
-- /api/v1/libraries/videogames/id/rating
-* */
-
 import {Request, Response} from "express";
 import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
 import {Status, UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
