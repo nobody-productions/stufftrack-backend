@@ -5,8 +5,8 @@
 * */
 
 import {Request, Response} from "express";
-import {createQueryBuilder, getManager} from "typeorm";
-import {UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
+import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
+import {Status, UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 import {User} from "../../entity/user.entity";
 
@@ -78,11 +78,30 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
 export const CreateVideogameUserLibrary = async(req: Request, res: Response) => {
     const repository = getManager().getRepository(UserVideogame);
 
-    // forza lo user id dell'utente loggato
+    // forza lo user id dell'utente loggato cosi in caso di dati "strani" vengono fatti sull'utente corrente
     req.body.id = req['user'].id
 
     const videogame = await repository.save(req.body);
 
     // TODO: sistemare in caso di duplicati
     res.status(201).send(videogame);
+}
+
+export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => {
+    // parametri: videogame -> id: number
+    const oldV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.body.videogame)}})
+    await getRepository(UserVideogame).createQueryBuilder()
+        .update()
+        .set(req.body)
+        .andWhere(`videogame = :videogame`, { videogame: oldV.id})
+        .andWhere(`user = :user`, { user: req['user'].id})
+        .execute();
+
+    const actualV = await createQueryBuilder('vg_user_videogame', 'uvg')
+        .innerJoinAndSelect('uvg.videogame', 'vg')
+        .innerJoinAndSelect('uvg.platform', 'platform')
+        .andWhere({'user': req['user']})
+        .andWhere({'videogame': parseInt(req.body.videogame)})
+        .getOne()
+    return res.status(200).send(actualV)
 }
