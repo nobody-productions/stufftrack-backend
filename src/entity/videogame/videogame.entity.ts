@@ -80,7 +80,7 @@ export class UserVideogame {
     @UpdateDateColumn({type: 'timestamptz'})
     updated_at: Date
 
-    @CreateDateColumn({nullable: true, type: 'timestamptz'})
+    @Column({type: 'timestamptz', default: null, nullable: true})
     finished: Date
 
     @Column({default: 0})
