@@ -68,6 +68,7 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
     res.status(200).send(result)
 }
 
+// NOTA: crea una relationship tra gioco esistente nel db e utente loggato
 export const CreateVideogameUserLibrary = async(req: Request, res: Response) => {
     const repository = getManager().getRepository(UserVideogame);
 
@@ -97,4 +98,16 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
         .andWhere({'videogame': parseInt(req.body.videogame)})
         .getOne()
     return res.status(200).send(actualV)
+}
+
+
+export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => {
+    // parametri: videogame -> id: number
+    const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.body.videogame)}})
+    await getRepository(UserVideogame).createQueryBuilder()
+        .delete()
+        .andWhere(`videogame = :videogame`, { videogame: vg.id})
+        .andWhere(`user = :user`, { user: req['user'].id})
+        .execute();
+    return res.status(204).send(null)
 }
