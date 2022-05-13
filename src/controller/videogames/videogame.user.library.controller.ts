@@ -1,8 +1,7 @@
 import {Request, Response} from "express";
-import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
-import {Status, UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
+import {createQueryBuilder, getManager, getRepository} from "typeorm";
+import {UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
-import {User} from "../../entity/user.entity";
 
 // get all videogames in user library
 export const VideogameUserLibrary = async (req: Request, res: Response) => {
