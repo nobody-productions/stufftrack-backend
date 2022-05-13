@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
+    "seed:role": "ts-node src/seeder/role.seed.ts",
     "seed:developer": "ts-node src/seeder/videogame/developer.seed.ts",
     "seed:user": "ts-node src/seeder/user.seed.ts",
     "seed:platform": "ts-node src/seeder/videogame/platform.seed.ts",
@@ -13,7 +14,7 @@
     "seed:remake": "ts-node src/seeder/videogame/remake.seed.ts",
     "seed:rating": "ts-node src/seeder/videogame/rating.seed.ts",
     "seed:user-lib": "ts-node src/seeder/videogame/user.library.seed.ts",
-    "populate-vg": "npm run seed:platform && npm run seed:developer && npm run seed:genre && npm run seed:videogame && npm run seed:remake && npm run seed:rating && npm run seed:user-lib"
+    "populate-vg": "npm run seed:role && npm run seed:platform && npm run seed:developer && npm run seed:genre && npm run seed:videogame && npm run seed:remake && npm run seed:rating && npm run seed:user-lib"
   },
   "keywords": [],
   "author": "Damiano Gualandri",
