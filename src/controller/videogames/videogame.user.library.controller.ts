@@ -46,3 +46,31 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
         }
     });
 }
+
+export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
+    // mi prendo le piattaforme
+    const platOnly = await getManager().getRepository(Platform)
+        .createQueryBuilder()
+        .select('vg_platform')
+        .from(Platform, "vg_platform")
+        .innerJoin('vg_videogame_platform', 'vg_videogame_platform', 'vg_platform.id = vg_videogame_platform.platform_id')
+        .innerJoin('vg_videogame', 'vg_videogame', 'vg_videogame_platform.videogame_id = vg_videogame.id')
+        .where("vg_videogame.id = :id", { id: req.params.id })
+    const platOnlyRes = await platOnly.getMany();
+
+    // query normale senza piattaforme dentro il videogioco
+    const query = createQueryBuilder('vg_user_videogame', 'uvg')
+        .innerJoinAndSelect('uvg.videogame', 'vg')
+        .innerJoinAndSelect('uvg.platform', 'platform')
+        .andWhere({'user': req['user']})
+        .andWhere({'videogame': req.params.id})
+
+    const result = await query.getOne();
+
+    // unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
+    if (result !== null)
+        result['videogame'].platform = platOnlyRes
+
+    res.send(result)
+}
+
