@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createQueryBuilder, getManager, getRepository} from "typeorm";
+import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
 import {UserVideogame, Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 
@@ -109,4 +109,20 @@ export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => 
         .andWhere(`user = :user`, { user: req['user'].id})
         .execute();
     return res.status(204).send(null)
+}
+
+//////////////
+/// RATING ///
+//////////////
+export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
+    const query = await
+        getRepository('vg_rating')
+        .createQueryBuilder("vg_rating")
+        .where("videogame_id = :id", { id: req.params.id })
+        .andWhere('user_id = :user_id', { user_id: req['user'].id })
+        .getOne();
+
+    // const result = await query.execute();
+
+    res.status(200).send(query)
 }
