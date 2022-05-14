@@ -8,6 +8,7 @@ import {
     GetVideogameUserLibrary, UpdateVideogameUserLibrary,
     VideogameUserLibrary
 } from "./controller/videogames/videogame.user.library.controller";
+import {GetPlatform, Platforms} from "./controller/videogames/platform.controller";
 
 export const routes = (router: Router) => {
     // auth routes
@@ -22,12 +23,14 @@ export const routes = (router: Router) => {
     router.get("/api/v1/users/:id", AuthMiddleware, GetUser)
 
     // videogames
-    router.get("/api/v1/videogames", AuthMiddleware, Videogames)
+    router.get("/api/v1/videogames", AuthMiddleware, Videogames)    // get all videogames in db
+    router.get("/api/v1/videogames/platforms", AuthMiddleware, Platforms)   // get all platforms in db
+    router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform) // get a specific platform in db
 
-    // user videogames
-    router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)
-    router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary)
-    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary)
+    // user library
+    router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)        // all vgs in userlib
+    router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary) // get a specific videogame in userlib, given an id
+    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary) // insert a new videogame in userlib
     router.put('/api/v1/libraries/videogames', AuthMiddleware, UpdateVideogameUserLibrary)
     router.delete('/api/v1/libraries/videogames', AuthMiddleware, DeleteVideogameUserLibrary)
 
