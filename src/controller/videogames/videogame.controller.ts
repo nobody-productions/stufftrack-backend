@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getManager} from "typeorm";
+import {getConnection, getManager} from "typeorm";
 import { Videogame } from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 
@@ -39,3 +39,13 @@ export const Videogames = async (req: Request, res: Response) => {
     });
 }
 
+export const GetVideogameRemake = async (req: Request, res: Response) => {
+    const remake = await getConnection()
+        .createQueryBuilder()
+        .select("vg_remake")
+        .from('vg_remake', "vg_remake")
+        .where("original = :id", { id: parseInt(req.params.id) })
+        .execute();
+
+    res.status(200).send(remake)
+}

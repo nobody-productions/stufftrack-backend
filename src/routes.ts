@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {Login, Register, Logout, Profile, UpdateInfo, UpdatePassword } from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
-import {Videogames} from "./controller/videogames/videogame.controller";
+import {GetVideogameRemake, Videogames} from "./controller/videogames/videogame.controller";
 import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogameUserLibrary, DeleteVideogameUserLibrary,
@@ -24,6 +24,7 @@ export const routes = (router: Router) => {
 
     // videogames
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)    // get all videogames in db
+    router.get('/api/v1/videogames/:id/remake', AuthMiddleware, GetVideogameRemake) // given a videogame id, get the original and the remake ids
     router.get("/api/v1/videogames/platforms", AuthMiddleware, Platforms)   // get all platforms in db
     router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform) // get a specific platform in db
 
@@ -33,6 +34,7 @@ export const routes = (router: Router) => {
     router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary) // insert a new videogame in userlib
     router.put('/api/v1/libraries/videogames', AuthMiddleware, UpdateVideogameUserLibrary)
     router.delete('/api/v1/libraries/videogames', AuthMiddleware, DeleteVideogameUserLibrary)
+
 
 
 }
