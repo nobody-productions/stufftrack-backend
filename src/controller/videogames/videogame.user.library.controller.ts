@@ -126,3 +126,13 @@ export const GetVideogameUserLibraryRating = async (req: Request, res: Response)
 
     res.status(200).send(query)
 }
+
+export const DeleteVideogameUserLibraryRating = async (req: Request, res: Response) => {
+    const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
+    await getRepository('vg_rating').createQueryBuilder()
+        .delete()
+        .andWhere(`videogame_id = :videogame`, { videogame: vg.id})
+        .andWhere(`user = :user`, { user: req['user'].id})
+        .execute();
+    return res.status(204).send(null)
+}

@@ -5,6 +5,7 @@ import {GetVideogameRemake, Videogames} from "./controller/videogames/videogame.
 import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogameUserLibrary, DeleteVideogameUserLibrary,
+    DeleteVideogameUserLibraryRating,
     GetVideogameUserLibrary, GetVideogameUserLibraryRating, UpdateVideogameUserLibrary,
     VideogameUserLibrary
 } from "./controller/videogames/videogame.user.library.controller";
@@ -34,7 +35,9 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary) // get a specific videogame in userlib, given an id
     router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, UpdateVideogameUserLibrary)
     router.delete('/api/v1/libraries/videogames/:id', AuthMiddleware, DeleteVideogameUserLibrary)
+
     router.get('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, GetVideogameUserLibraryRating) // get a specific videogame in userlib, given an id
+    router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, DeleteVideogameUserLibraryRating) // delete a specific videogame in userlib, given an id
 
 
 
