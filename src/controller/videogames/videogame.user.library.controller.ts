@@ -82,8 +82,7 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
 }
 
 export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => {
-    // parametri: videogame -> id: number
-    const oldV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.body.videogame)}})
+    const oldV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
     await getRepository(UserVideogame).createQueryBuilder()
         .update()
         .set(req.body)
@@ -95,7 +94,7 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
         .innerJoinAndSelect('uvg.videogame', 'vg')
         .innerJoinAndSelect('uvg.platform', 'platform')
         .andWhere({'user': req['user']})
-        .andWhere({'videogame': parseInt(req.body.videogame)})
+        .andWhere({'videogame': parseInt(req.params.id)})
         .getOne()
     return res.status(200).send(actualV)
 }
@@ -103,7 +102,7 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
 
 export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => {
     // parametri: videogame -> id: number
-    const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.body.videogame)}})
+    const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
     await getRepository(UserVideogame).createQueryBuilder()
         .delete()
         .andWhere(`videogame = :videogame`, { videogame: vg.id})

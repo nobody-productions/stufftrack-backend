@@ -30,10 +30,10 @@ export const routes = (router: Router) => {
 
     // user library
     router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)        // all vgs in userlib
+    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary) // create a new videogame in userlib
     router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary) // get a specific videogame in userlib, given an id
-    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary) // insert a new videogame in userlib
-    router.put('/api/v1/libraries/videogames', AuthMiddleware, UpdateVideogameUserLibrary)
-    router.delete('/api/v1/libraries/videogames', AuthMiddleware, DeleteVideogameUserLibrary)
+    router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, UpdateVideogameUserLibrary)
+    router.delete('/api/v1/libraries/videogames/:id', AuthMiddleware, DeleteVideogameUserLibrary)
 
 
 
