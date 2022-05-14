@@ -29,10 +29,10 @@ export class Rating {
     is_public_ranking: boolean
 
     @CreateDateColumn({ type: 'timestamptz' })
-    createdAt: Date
+    created_at: Date
 
     @UpdateDateColumn({ type: 'timestamptz' })
-    updatedAt: Date
+    updated_at: Date
 
     @ManyToOne(() => User, user => user.id)
     @JoinColumn({name: "user_id"})
