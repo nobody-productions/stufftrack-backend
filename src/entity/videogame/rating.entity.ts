@@ -19,13 +19,13 @@ export class Rating {
     @Column()
     comment: string;
 
-    @Column()
+    @Column({default: "0"})
     ranking: number;
 
-    @Column()
+    @Column({default: true})
     is_public_comment: boolean
 
-    @Column()
+    @Column({default: true})
     is_public_ranking: boolean
 
     @CreateDateColumn({ type: 'timestamptz' })
