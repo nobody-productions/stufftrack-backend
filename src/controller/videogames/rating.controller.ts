@@ -20,7 +20,7 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
     const repository = getManager().getRepository(Rating);
 
     // forza lo user id dell'utente loggato cosi in caso di dati "strani" vengono fatti sull'utente corrente
-    req.body.id = req['user'].id
+    req.body.user = req['user'].user
 
     const rating = await repository.save(req.body);
 
