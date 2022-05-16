@@ -1,7 +1,12 @@
 import { Router } from "express";
 import {Login, Register, Logout, Profile, UpdateInfo, UpdatePassword } from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
-import {CreateVideogame, GetVideogameRemake, Videogames} from "./controller/videogames/videogame.controller";
+import {
+    CreateVideogame,
+    DeleteVideogame,
+    GetVideogameRemake,
+    Videogames
+} from "./controller/videogames/videogame.controller";
 import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogameUserLibrary,
@@ -27,6 +32,7 @@ export const routes = (router: Router) => {
 
     // admin routes -> videogame management
     router.post("/api/v1/videogames", AuthMiddleware, CreateVideogame)
+    router.delete("/api/v1/videogames/:id", AuthMiddleware, DeleteVideogame)
 
     // user routes
     router.get("/api/v1/users/:id", AuthMiddleware, GetUser)
