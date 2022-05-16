@@ -14,5 +14,5 @@ export const GetUser = async (req: Request, res: Response) => {
         res.send(user)
     }
     else
-        res.status(404).send('User not found!')
+        res.status(404).send({message: 'user not found!'})
 }
