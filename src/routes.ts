@@ -1,25 +1,25 @@
 import { Router } from "express";
 import {Login, Register, Logout, Profile, UpdateInfo, UpdatePassword } from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
+import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogame,
     DeleteVideogame,
     GetVideogameRemake, UpdateVideogame,
     Videogames
 } from "./controller/videogames/videogame.controller";
-import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogameUserLibrary,
-    CreateVideogameUserLibraryRating,
     DeleteVideogameUserLibrary,
-    DeleteVideogameUserLibraryRating,
     GetVideogameUserLibrary,
-    GetVideogameUserLibraryRating,
     UpdateVideogameUserLibrary,
-    UpdateVideogameUserLibraryRating,
     VideogameUserLibrary
 } from "./controller/videogames/videogame.user.library.controller";
 import {GetPlatform, Platforms} from "./controller/videogames/platform.controller";
+import {
+    CreateVideogameUserLibraryRating, DeleteVideogameUserLibraryRating,
+    GetVideogameUserLibraryRating, UpdateVideogameUserLibraryRating
+} from "./controller/videogames/rating.controller";
 
 export const routes = (router: Router) => {
     /*
