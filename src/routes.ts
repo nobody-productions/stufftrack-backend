@@ -20,6 +20,7 @@ import {
     CreateVideogameUserLibraryRating, DeleteVideogameUserLibraryRating,
     GetVideogameUserLibraryRating, UpdateVideogameUserLibraryRating
 } from "./controller/videogames/rating.controller";
+import {CreateRemake} from "./controller/videogames/remake.controller";
 
 export const routes = (router: Router) => {
     /*
@@ -46,6 +47,8 @@ export const routes = (router: Router) => {
     router.post("/api/v1/videogames", AuthMiddleware, CreateVideogame)
     router.put("/api/v1/videogames/:id", AuthMiddleware, UpdateVideogame)
     router.delete("/api/v1/videogames/:id", AuthMiddleware, DeleteVideogame)
+
+    router.post("/api/v1/videogames/:id/remake", AuthMiddleware, CreateRemake)
 
     /*
         VIDEOGAMES INTEGRATION - GENERAL
