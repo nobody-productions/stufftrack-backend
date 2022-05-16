@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {getManager} from "typeorm";
 import {Platform} from "../../entity/videogame/platform.entity";
+import {Videogame} from "../../entity/videogame/videogame.entity";
 
 // get all platforms
 export const Platforms = async (req: Request, res: Response) => {
@@ -41,4 +42,12 @@ export const GetPlatform = async (req: Request, res: Response) => {
     }
     else
         return res.status(200).send(data)
+}
+
+// admin
+export const CreatePlatform = async (req: Request, res: Response) => {
+    const repository = getManager().getRepository(Platform);
+    const platform = await repository.save(req.body);
+
+    res.status(201).send(platform);
 }
