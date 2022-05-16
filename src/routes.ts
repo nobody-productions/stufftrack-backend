@@ -77,8 +77,8 @@ export const routes = (router: Router) => {
     router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform)
 
     router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)
-    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary)
     router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary)
+    router.post('/api/v1/libraries/videogames/:id', AuthMiddleware, CreateVideogameUserLibrary)
     router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, UpdateVideogameUserLibrary)
     router.delete('/api/v1/libraries/videogames/:id', AuthMiddleware, DeleteVideogameUserLibrary)
 
