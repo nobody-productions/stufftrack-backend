@@ -16,7 +16,7 @@ export class Rating {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable: true})
     comment: string;
 
     @Column({default: "0"})
