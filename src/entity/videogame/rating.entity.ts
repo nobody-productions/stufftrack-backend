@@ -4,7 +4,7 @@ import {
     Entity,
     JoinColumn,
     ManyToOne,
-    OneToOne,
+    OneToOne, PrimaryColumn,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
@@ -38,7 +38,7 @@ export class Rating {
     @JoinColumn({name: "user_id"})
     user: User
 
-    @OneToOne(() => Videogame)
+    @ManyToOne(() => Videogame)
     @JoinColumn({name: 'videogame_id'})
     videogame: Videogame
 }
