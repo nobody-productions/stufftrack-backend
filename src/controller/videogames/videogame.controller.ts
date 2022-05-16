@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getConnection, getManager, getRepository} from "typeorm";
+import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 
@@ -58,6 +58,16 @@ export const CreateVideogame = async(req: Request, res: Response) => {
     res.status(201).send(videogame);
 }
 
+export const UpdateVideogame = async(req: Request, res: Response) => {
+    await getRepository(Videogame).createQueryBuilder()
+        .update()
+        .set(req.body)
+        .andWhere(`id = :id`, { id: parseInt(req.params.id)})
+        .execute();
+    const actualV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
+
+    return res.status(200).send(actualV)
+}
 
 export const DeleteVideogame = async(req: Request, res: Response) => {
     await getRepository(Videogame).createQueryBuilder()
