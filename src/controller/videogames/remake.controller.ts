@@ -44,7 +44,7 @@ export const DeleteRemake = async (req: Request, res: Response) => {
             await repository.save(vg1)
         }
 
-        return res.status(201).send('success');
+        return res.status(201).send({message: 'success'});
     }
     else {
         return res.status(404).send({message: 'original videogame doesn\'t exists'});
