@@ -75,7 +75,7 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
     const repository = getManager().getRepository(UserVideogame);
 
     // forza lo user id dell'utente loggato cosi in caso di dati "strani" vengono fatti sull'utente corrente
-    req.body.id = req['user'].id
+    req.body.user = req['user'].id
 
     const videogame = await repository.save(req.body);
 
