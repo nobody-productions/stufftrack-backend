@@ -14,14 +14,15 @@ export const PermissionMiddleware = (access: string) => {
                     message: 'unauthorized'
                 })
             }
-            else{
-                if(!permissions.some(p => (p.name === `edit_${access}`))) {
-                    return res.status(401).send({
-                        message: 'unauthorized'
-                    })
-                }
 
+        }
+        else{
+            if(!permissions.some(p => (p.name === `edit_${access}`))) {
+                return res.status(401).send({
+                    message: 'unauthorized'
+                })
             }
+
         }
         next()
     }
