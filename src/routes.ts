@@ -15,7 +15,7 @@ import {
     UpdateVideogameUserLibrary,
     VideogameUserLibrary
 } from "./controller/videogames/videogame.user.library.controller";
-import {CreatePlatform, GetPlatform, Platforms} from "./controller/videogames/platform.controller";
+import {CreatePlatform, DeletePlatform, GetPlatform, Platforms} from "./controller/videogames/platform.controller";
 import {
     CreateVideogameUserLibraryRating, DeleteVideogameUserLibraryRating,
     GetVideogameUserLibraryRating, UpdateVideogameUserLibraryRating
@@ -52,6 +52,7 @@ export const routes = (router: Router) => {
     router.delete("/api/v1/videogames/:id/remake", AuthMiddleware, DeleteRemake)
 
     router.post("/api/v1/videogames/platforms", AuthMiddleware, CreatePlatform)
+    router.delete("/api/v1/videogames/platforms/:id", AuthMiddleware, DeletePlatform)
 
     /*
         VIDEOGAMES INTEGRATION - GENERAL

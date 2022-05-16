@@ -51,3 +51,10 @@ export const CreatePlatform = async (req: Request, res: Response) => {
 
     res.status(201).send(platform);
 }
+
+export const DeletePlatform = async (req: Request, res: Response) => {
+    const repository = getManager().getRepository(Platform);
+    const platform = await repository.delete(parseInt(req.params.id));
+
+    res.status(204).send(null);
+}
