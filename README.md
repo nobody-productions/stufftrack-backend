@@ -34,5 +34,8 @@ It will be easier for you, and you won't spend a lot of time to figure out what'
    1. In this phase, I highly recommend tools like **Postman**
 7. **Launch a PR**: if everything's ready, we can integrate another module. Yay! ✨
 
+## Documentation
+See [DOCUMENTATION.ITA.md](DOCUMENTATION.ITA.md). The english one is WIP.
+
 ## License
 Everything is under AGPL, see LICENSE to learn more.
