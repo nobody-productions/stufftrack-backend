@@ -22,39 +22,62 @@ import {
 import {GetPlatform, Platforms} from "./controller/videogames/platform.controller";
 
 export const routes = (router: Router) => {
-    // auth routes
+    /*
+        BASIC ROUTES
+        - login, logout, register
+        - profile info
+        - view a specific user profile, knowing his id -> all users are public as long as you log in
+        - update user info and user
+     */
     router.post("/api/v1/register", Register)
     router.post("/api/v1/login", Login)
     router.post("/api/v1/logout", Logout)
     router.get("/api/v1/profile", AuthMiddleware, Profile)
+    router.get("/api/v1/users/:id", AuthMiddleware, GetUser)
     router.put("/api/v1/users/info", AuthMiddleware, UpdateInfo)
     router.put("/api/v1/users/password", AuthMiddleware, UpdatePassword)
 
-    // admin routes -> videogame management
+    /*
+        ADMIN ROUTES
+        - add / edit / remove a videogame (from the local db)
+        - add / remove a remake (knowing first the videogames that needs to be linked each other)
+        - add / remove a platform
+     */
     router.post("/api/v1/videogames", AuthMiddleware, CreateVideogame)
     router.put("/api/v1/videogames/:id", AuthMiddleware, UpdateVideogame)
     router.delete("/api/v1/videogames/:id", AuthMiddleware, DeleteVideogame)
 
-    // user routes -> users are public
-    router.get("/api/v1/users/:id", AuthMiddleware, GetUser)
+    /*
+        VIDEOGAMES INTEGRATION - GENERAL
+        - retrieve all videogames in db
+        - given a videogame id, get the original and the remake ids
+        - retrieve all platforms in db
+        - get a specific platform
 
-    // videogames
-    router.get("/api/v1/videogames", AuthMiddleware, Videogames)                     // get all videogames in db
-    router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, GetVideogameRemake) // given a videogame id, get the original and the remake ids
-    router.get("/api/v1/videogames/platforms", AuthMiddleware, Platforms)            // get all platforms in db
-    router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform)      // get a specific platform in db
+        VIDEOGAMES INTEGRATION - USER LIBRARY
+        - retrieve all videogames in user library
+        - retrieve a specific videogame in user library
+        - add / edit / remove a specific game in user library
 
-    // user library
-    router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)        // all vgs in userlib
-    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary) // create a new videogame in userlib
-    router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary) // get a specific videogame in userlib, given an id
+        VIDEOGAMES INTEGRATION - RATING
+        - get the rating of a specific videogame in userlib
+        - add / edit / remove the rating of a specific videogame in userlib
+    */
+    router.get("/api/v1/videogames", AuthMiddleware, Videogames)
+    router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, GetVideogameRemake)
+    router.get("/api/v1/videogames/platforms", AuthMiddleware, Platforms)
+    router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform)
+
+    router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)
+    router.post('/api/v1/libraries/videogames', AuthMiddleware, CreateVideogameUserLibrary)
+    router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary)
     router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, UpdateVideogameUserLibrary)
     router.delete('/api/v1/libraries/videogames/:id', AuthMiddleware, DeleteVideogameUserLibrary)
 
-    router.get('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, GetVideogameUserLibraryRating) // get a specific videogame in userlib, given an id
-    router.post('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CreateVideogameUserLibraryRating) // create a new videogame in userlib
-    router.put('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, UpdateVideogameUserLibraryRating) // update a specific videogame in userlib, given an id
-    router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, DeleteVideogameUserLibraryRating) // delete a specific videogame in userlib, given an id
+    router.get('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, GetVideogameUserLibraryRating)
+    router.post('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CreateVideogameUserLibraryRating)
+    router.put('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, UpdateVideogameUserLibraryRating)
+    router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, DeleteVideogameUserLibraryRating)
 
 
 
