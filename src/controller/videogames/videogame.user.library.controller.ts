@@ -4,6 +4,10 @@ import {UserVideogame} from "../../entity/videogame/videogame.user.library";
 import { Videogame } from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 import {Rating} from "../../entity/videogame/rating.entity";
+import {RegisterValidation} from "../../validation/register.validation";
+import {
+    VideogameUserLibraryValidation
+} from "../../validation/userlibrary.validation";
 
 // get all videogames in user library
 export const VideogameUserLibrary = async (req: Request, res: Response) => {
@@ -76,11 +80,23 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
 
     // forza lo user id dell'utente loggato cosi in caso di dati "strani" vengono fatti sull'utente corrente
     req.body.user = req['user'].id
+    req.body.videogame = parseInt(req.params.id)
 
-    const videogame = await repository.save(req.body);
+    // chk: errori in input
+    const {error} = VideogameUserLibraryValidation.validate(req.body);
+    if(error) {
+        return res.status(400).send(error.details);
+    }
+
+    let videogame: any
+    try {
+        videogame = await repository.save(req.body);
+    } catch (error) {
+        return res.status(400).send({message: "error while saving, make sure you didn't already saved this file and try again"});
+    }
 
     // TODO: sistemare in caso di duplicati
-    res.status(201).send(videogame);
+    return res.status(201).send(videogame);
 }
 
 export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => {
