@@ -25,7 +25,7 @@ export const routes = (router: Router) => {
 
     // videogames
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)    // get all videogames in db
-    router.get('/api/v1/videogames/:id/remake', AuthMiddleware, GetVideogameRemake) // given a videogame id, get the original and the remake ids
+    router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, GetVideogameRemake) // given a videogame id, get the original and the remake ids
     router.get("/api/v1/videogames/platforms", AuthMiddleware, Platforms)   // get all platforms in db
     router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform) // get a specific platform in db
 
