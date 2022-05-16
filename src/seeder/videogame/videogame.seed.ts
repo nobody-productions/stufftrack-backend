@@ -28,7 +28,7 @@ createConnections().then(async () => {
     })
 
     vg_target = await repository.findOne({where: {id: 2}})
-    platform = await getManager().getRepository(Platform).findOne({where: {codename: "MD"}})
+    platform = await getManager().getRepository(Platform).findOne({where: {codename: "SMS"}})
     developer = await getManager().getRepository(Developer).findOne({where: {name: "SEGA"}})
     await save_platform_to_db(vg_target, platform, repository)
     await save_developer_to_db(vg_target, developer, repository)
