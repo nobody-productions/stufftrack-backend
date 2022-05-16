@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {Login, Register, Logout, Profile, UpdateInfo, UpdatePassword } from "./controller/auth.controller";
 import {AuthMiddleware} from "./middleware/auth.middleware";
-import {GetVideogameRemake, Videogames} from "./controller/videogames/videogame.controller";
+import {CreateVideogame, GetVideogameRemake, Videogames} from "./controller/videogames/videogame.controller";
 import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogameUserLibrary,
@@ -24,6 +24,9 @@ export const routes = (router: Router) => {
     router.get("/api/v1/profile", AuthMiddleware, Profile)
     router.put("/api/v1/users/info", AuthMiddleware, UpdateInfo)
     router.put("/api/v1/users/password", AuthMiddleware, UpdatePassword)
+
+    // admin routes -> videogame management
+    router.post("/api/v1/videogames", AuthMiddleware, CreateVideogame)
 
     // user routes
     router.get("/api/v1/users/:id", AuthMiddleware, GetUser)

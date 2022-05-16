@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {getConnection, getManager} from "typeorm";
-import { Videogame } from "../../entity/videogame/videogame.entity";
+import {Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 
 // get all videogames
@@ -48,4 +48,12 @@ export const GetVideogameRemake = async (req: Request, res: Response) => {
         .execute();
 
     res.status(200).send(remake)
+}
+
+// admin cmd
+export const CreateVideogame = async(req: Request, res: Response) => {
+    const repository = getManager().getRepository(Videogame);
+    const videogame = await repository.save(req.body);
+
+    res.status(201).send(videogame);
 }
