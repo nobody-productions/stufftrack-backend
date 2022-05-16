@@ -4,9 +4,14 @@ import {AuthMiddleware} from "./middleware/auth.middleware";
 import {GetVideogameRemake, Videogames} from "./controller/videogames/videogame.controller";
 import {GetUser} from "./controller/user.controller";
 import {
-    CreateVideogameUserLibrary, CreateVideogameUserLibraryRating, DeleteVideogameUserLibrary,
+    CreateVideogameUserLibrary,
+    CreateVideogameUserLibraryRating,
+    DeleteVideogameUserLibrary,
     DeleteVideogameUserLibraryRating,
-    GetVideogameUserLibrary, GetVideogameUserLibraryRating, UpdateVideogameUserLibrary,
+    GetVideogameUserLibrary,
+    GetVideogameUserLibraryRating,
+    UpdateVideogameUserLibrary,
+    UpdateVideogameUserLibraryRating,
     VideogameUserLibrary
 } from "./controller/videogames/videogame.user.library.controller";
 import {GetPlatform, Platforms} from "./controller/videogames/platform.controller";
@@ -38,6 +43,7 @@ export const routes = (router: Router) => {
 
     router.get('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, GetVideogameUserLibraryRating) // get a specific videogame in userlib, given an id
     router.post('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CreateVideogameUserLibraryRating) // create a new videogame in userlib
+    router.put('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, UpdateVideogameUserLibraryRating) // update a specific videogame in userlib, given an id
     router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, DeleteVideogameUserLibraryRating) // delete a specific videogame in userlib, given an id
 
 

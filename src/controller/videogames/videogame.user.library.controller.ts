@@ -140,6 +140,22 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
     res.status(201).send(rating);
 }
 
+export const UpdateVideogameUserLibraryRating = async(req: Request, res: Response) => {
+    const rating = await getManager().getRepository('vg_rating').findOne({where: {id: parseInt(req.params.id)}})
+    await getRepository(Rating).createQueryBuilder()
+        .update()
+        .set(req.body)
+        .andWhere(`videogame = :videogame`, { videogame: parseInt(req.params.id)})
+        .andWhere(`user = :user`, { user: req['user'].id})
+        .execute();
+
+    const updatedRating = await createQueryBuilder('vg_rating', 'vg_rating')
+        .andWhere({'user': req['user']})
+        .andWhere({'videogame': parseInt(req.params.id)})
+        .getOne()
+    return res.status(200).send(updatedRating)
+}
+
 export const DeleteVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
     await getRepository('vg_rating').createQueryBuilder()
