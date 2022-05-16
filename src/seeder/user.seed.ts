@@ -5,7 +5,8 @@ import {Role} from "../entity/role.entity";
 
 createConnections().then(async () => {
     const roleRepository = getManager().getRepository(Role)
-    const targetRole = await roleRepository.findOne({where: {id: 2}})
+    const userRole = await roleRepository.findOne({where: {id: 2}})
+    const adminRole = await roleRepository.findOne({where: {id: 1}})
 
     const repository = getManager().getRepository(User);
 
@@ -16,7 +17,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "Mi piacciono i videogiochi ma odio Toad di Mario Kart. Firma anche tu la petizione per eliminarlo dal gioco: change.org/eliminiamo-toad-da-mario-kart/",
         active: true,
-        role: targetRole
+        role: adminRole
     })
 
     await repository.save({
@@ -26,7 +27,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "Mi piace testare i giochi su diversi dispositivi Android, i Mediatek fanno schifo!",
         active: true,
-        role: targetRole
+        role: adminRole
     })
 
     await repository.save({
@@ -36,7 +37,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "Ciao, mi piacciono i soldi.",
         active: true,
-        role: targetRole
+        role: userRole
     })
 
     await repository.save({
@@ -46,7 +47,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "Adoro dare da mangiare a Gary, la mia lumachina. I miei giochi preferiti sono i platform!",
         active: true,
-        role: targetRole
+        role: userRole
     })
 
     await repository.save({
@@ -56,7 +57,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "WADJIOA3FN9W3FJ390FJ90FJWIEFSKJFS EFJSIEOJF8FJ 3WJF3I FWIOJFIWOEJF W39F93W 0F CIAO",
         active: true,
-        role: targetRole
+        role: userRole
     })
 
     await repository.save({
@@ -66,7 +67,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "Quando non suono il clarinetto, sono il campione mondiale di Osu. Gioco solo a giochi musicali.",
         active: true,
-        role: targetRole
+        role: userRole
     })
 
     await repository.save({
@@ -76,7 +77,7 @@ createConnections().then(async () => {
         propic: "/profilepictures/default.png",
         bio: "Sono una persona temuta e rispettata su Splatoon, ma adoro i gdr o i giochi come God of War.",
         active: true,
-        role: targetRole
+        role: userRole
     })
 
     process.exit(0);
