@@ -5,7 +5,7 @@ import { Videogame } from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 import {
     VideogameUserLibraryValidation
-} from "../../validation/userlibrary.validation";
+} from "../../validation/videogame.user.library.validation";
 import {isValidPostgresNumber} from "../../validation/utils.validation";
 
 // get all videogames in user library
