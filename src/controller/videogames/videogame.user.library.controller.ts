@@ -45,10 +45,6 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
 }
 
 export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
-    if (!isValidPostgresNumber(req.params.id)) {
-        return res.status(400).send({message: "game id must be a valid number!"})
-    }
-
     // mi prendo le piattaforme
     const platOnly = await getManager().getRepository(Platform)
         .createQueryBuilder()
@@ -77,9 +73,6 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
 
 // NOTA: crea una relationship tra gioco esistente nel db e utente loggato
 export const CreateVideogameUserLibrary = async(req: Request, res: Response) => {
-    if (!isValidPostgresNumber(req.params.id)) {
-        return res.status(400).send({message: "game id must be a valid number!"})
-    }
     if (!isValidPostgresNumber(req.body.platform)) {
         return res.status(400).send({message: "platform id must be a valid number!"})
     }
@@ -107,10 +100,6 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
 }
 
 export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => {
-    if (!isValidPostgresNumber(req.params.id)) {
-        return res.status(400).send({message: "game id must be a valid number!"})
-    }
-
     const oldV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
 
     // chk: errori in input
@@ -146,10 +135,6 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
 
 
 export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => {
-    if (!isValidPostgresNumber(req.params.id)) {
-        return res.status(400).send({message: "game id must be a valid number!"})
-    }
-
     const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
 
     if(vg == undefined) {
