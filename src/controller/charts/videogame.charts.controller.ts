@@ -119,7 +119,7 @@ export const TotalVideogamesEver = async(req: Request, res: Response) => {
 
 // piattaforma sul quale hai finito o completato più cose
 export const TopPlatform = async(req: Request, res: Response) => {
-    const query = 'SELECT vg_platform.name "Platform", COUNT(vg_videogame.name) "Number of games"\n' +
+    const query = 'SELECT vg_platform.name "platform", COUNT(vg_videogame.name) "number of games"\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
         'JOIN vg_videogame_platform ON vg_videogame.id = vg_videogame_platform.videogame_id\n' +
