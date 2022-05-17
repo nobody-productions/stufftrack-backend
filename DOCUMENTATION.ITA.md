@@ -70,7 +70,7 @@ L'url da anteporre prima di tutte le richieste é: `/api/v1/`
 > Queste sono le uniche tre route accessibili da chiunque. Per tutte le altre occorre essere loggato.
 
 ------------------------------------------------------------------------------------------
-#### Route basiche
+#### Route basic
 
 <details>
  <summary><code>GET</code> <code>/profile</code> <code>(ritorna i dati dell'utente loggato in quel momento)</code></summary>
@@ -157,6 +157,7 @@ Queste route possono essere utilizzate solamente dagli admin.
 
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
+> | 400 | error while saving, make sure you didn't already saved this game and try again |
 > | 201 | json contenente i dati del nuovo videogioco appena creato: id, name, description, year, image |
 </details>
 
@@ -182,6 +183,7 @@ Queste route possono essere utilizzate solamente dagli admin.
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 200 | json contenente i dati del nuovo videogioco aggiornati: id, name, description, year, image |
+> | 400 | error while saving, make sure you didn't already saved this game and try again |
 </details>
 
 <details>
@@ -369,8 +371,8 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | 200 | json contenente 15 piattaforme. La risposta é paginata ed é possibile andare alla pagina successiva semplicemente aggiungendo /?page=xx a fine url.  |
 
 ##### Esempi
-- localhost:8800/api/v1/platforms/ -> ritorna le prime 15 piattaforme
-- localhost:8800/api/v1/platforms/?page=1000 -> ritorna la millesima pagina contenente 15 piattaforme
+- localhost:8800/api/v1/videogames/platforms/ -> ritorna le prime 15 piattaforme
+- localhost:8800/api/v1/videogames/platforms/?page=1000 -> ritorna la millesima pagina contenente 15 piattaforme
 </details>
 
 <details>
@@ -419,12 +421,12 @@ Queste route possono essere utilizzate dagli utenti loggati.
 </details>
 
 <details>
-<summary><code>POST</code> <code>/libraries/videogames/</code> <code>(inserisce un videogioco nella libreria dell'utente)</code></summary>
+<summary><code>POST</code> <code>/libraries/videogames/:id</code> <code>(inserisce un videogioco nella libreria dell'utente)</code></summary>
 
 ##### Parametri (URL)
 > | nome             | tipo              | obbligatorio             | descrizione           |
 > | -- | -- | -- | -- |
-> | nessuno | - | - | - |
+> | id | intero | si | identificativo del videogioco che si vuole aggiungere dell'utente  |
 
 ##### Parametri (body)
 > | nome             | tipo              | obbligatorio             | descrizione           |
@@ -433,13 +435,15 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | hours | intero | no | quante ore ha giocato l'utente |
 > | bought | booleano | no | se l'utente ha comprato quel gioco oppure no (default: false) |
 > | status | Stato | no | puó assumere i seguenti valori: {Da giocare, Finito, Completato, Abbandonato} (default: 'Da giocare') |
-> | videogame | intero | si | id del gioco |
 > | platform | intero | si | id della piattaforma sul quale ci ha giocato |
 
 ##### Codici di risposta
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 201 | json contenente i dati del nuovo videogioco appena creato: created_at (data creazione), updated_at (ultimo aggiornamento), finished, hours, bought, status, videogame, platform |
+> | 400 | error while saving, make sure you didn't already saved this game and try again |
+> | 400 | dettagli sul cosa c'é di sbagliato (es. campi malformati) |
+
 
 </details>
 
@@ -484,6 +488,8 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 200| json contenente i dati del nuovo videogioco appena creato: created_at (data creazione), updated_at (ultimo aggiornamento), finished, hours, bought, status, videogame, platform |
+> | 404 | game not found |
+> | 400 | dettagli sul cosa c'é di sbagliato (es. campi malformati) |
 
 </details>
 
@@ -505,12 +511,12 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 204 | null |
+> | 404 | game not found |
 
 </details>
 
 #### Videogiochi - Rating (valutazioni)
 
-##### Parametri (URL)
 <details>
 <summary><code>GET</code> <code>/libraries/videogames/:id/rating</code> <code>(ritorna una valutazione di un videogioco nella libreria dell'utente)</code></summary>
 
@@ -528,6 +534,7 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 200 | json contenente i dati della valutazione: id, comment (commento libero), ranking (numero da 1 a 10), is_public_comment e is_public_ranking (sviluppi futuri), created_at e updated_at (date contenenti data di creazione e di ultimo aggiornamento) |
+> | 404 | rating not found |
 
 </details>
 
@@ -552,6 +559,10 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 201 | json contenente i dati aggiornati della valutazione: comment (commento libero), ranking (numero da 1 a 10), is_public_comment e is_public_ranking (sviluppi futuri), created_at e updated_at (date contenenti data di creazione e di ultimo aggiornamento) |
+> | 409 | rating already exists! |
+> | 400 | dettagli sul cosa c'é di sbagliato (es. campi malformati) |
+> | 500 | internal server error (provocato da un incorretto save nel db) |
+
 </details>
 
 
@@ -576,6 +587,8 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | nome | messaggio                                                                                                   |
 > |------|------------------------------------------------------------------------------------------------------------- |
 > | 201 | json contenente i dati aggiornati della valutazione: comment (commento libero), ranking (numero da 1 a 10), is_public_comment e is_public_ranking (sviluppi futuri), created_at e updated_at (date contenenti data di creazione e di ultimo aggiornamento) |
+> | 400 | dettagli sul cosa c'é di sbagliato (es. campi malformati) |
+
 </details>
 
 <details>
