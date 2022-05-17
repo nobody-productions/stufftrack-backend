@@ -26,7 +26,7 @@ import {CheckIdParamMiddleware} from "./middleware/checkidparam.middleware";
 import {
     GetNumberAbandonedGames, GetNumberCompletedAndFinishedGames,
     GetNumberCompletedGames,
-    GetNumberFinishedGames, GetNumberNowPlayingGames, GetNumberToPlayGames, Top20VideogamesEver,
+    GetNumberFinishedGames, GetNumberNowPlayingGames, GetNumberToPlayGames, Top20VideogamesEver, TotalBought,
 } from "./controller/charts/videogame.charts.controller";
 
 export const routes = (router: Router) => {
@@ -104,5 +104,6 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/videogames/charts/now-playing', AuthMiddleware, GetNumberNowPlayingGames)
     router.get('/api/v1/libraries/videogames/charts/completed-and-finished', AuthMiddleware, GetNumberCompletedAndFinishedGames)
     router.get('/api/v1/libraries/videogames/charts/top20', AuthMiddleware, Top20VideogamesEver)
+    router.get('/api/v1/libraries/videogames/charts/total-bought', AuthMiddleware, TotalBought)
 
 }
