@@ -3,6 +3,7 @@ import {createQueryBuilder, getManager, getRepository} from "typeorm";
 import {Rating} from "../../entity/videogame/rating.entity";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {User} from "../../entity/user.entity";
+import {VideogameUserLibraryRatingValidation} from "../../validation/rating.validation";
 
 export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const query = await
@@ -20,6 +21,12 @@ export const GetVideogameUserLibraryRating = async (req: Request, res: Response)
 }
 
 export const CreateVideogameUserLibraryRating = async(req: Request, res: Response) => {
+    // chk: errori in input
+    const {error} = VideogameUserLibraryRatingValidation.validate(req.body);
+    if(error) {
+        return res.status(400).send(error.details);
+    }
+
     const repository = getManager().getRepository(Rating);
 
     let userTarget = await getManager().getRepository(User).findOne({where: {id: req['user'].id}})
@@ -48,7 +55,12 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
 }
 
 export const UpdateVideogameUserLibraryRating = async(req: Request, res: Response) => {
-    const rating = await getManager().getRepository('vg_rating').findOne({where: {id: parseInt(req.params.id)}})
+    // chk: errori in input
+    const {error} = VideogameUserLibraryRatingValidation.validate(req.body);
+    if(error) {
+        return res.status(400).send(error.details);
+    }
+
     await getRepository(Rating).createQueryBuilder()
         .update()
         .set(req.body)
