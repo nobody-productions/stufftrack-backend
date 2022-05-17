@@ -1,9 +1,59 @@
-## Documentazione
+# Documentazione ITA
 
 L'url da anteporre prima di tutte le richieste é: `/api/v1/`
 
+## Indice
+- [Autenticazione](#autenticazione)
+  - `POST` `/register` `(permette ai nuovi utenti di registrarsi)`
+  - `POST` `/login` `(permette agli utenti di loggarsi)`
+  - `POST` `/logout` `(permette agli utenti di fare log out)`
+- [Route Basic](#route-basic)
+  - `GET` `/profile` `(ritorna i dati dell'utente loggato in quel momento)`
+  - `GET` `/users/:id` `(dato un id in input, ritorna i dati di quell'utente specifico)`
+  - `PUT` `/users/info` `(modifica i dati dell'utente corrente)`
+  - `PUT` `/users/password` `(modifica la password dell'utente corrente)`
+- [Route Admin](#route-admin)
+  - [Gestione Videogiochi](#gestione-videogiochi)
+    - `POST` `/videogames` `(inserisce un nuovo videogioco all'interno del db interno)`
+    - `PUT` `/videogames/:id` `(modifica i dati di un videogioco all'interno del db interno)`
+    - `DELETE` `/videogames/:id` `(cancella un videogioco dal db interno)`
+  - [Gestione Remake](#gestione-remake)
+    - `POST` `/videogames/:id/remake` `(aggiunge un remake nel db interno)`
+    - `DELETE` `/videogames/:id/remake` `(rimuove un remake dal db interno)`
+  - [Gestione Piattaforme](#gestione-piattaforme)
+    - `POST` `/videogames/platforms` `(aggiunge una piattaforma nel db interno`
+    - `DELETE` `/videogames/platforms/:id` `(rimuove una piattaforma dal db interno)`
+- [Route Utente](#route-utente)
+  - [Videogiochi - generali](#videogiochi-generali)
+    - `GET` `/videogames/` `(ritorna tutti i videogiochi presenti nel db interno)`
+    - `GET` `/videogames/:id/remake` `(ritorna tutti i remake di un certo videogioco)`
+    - `GET` `/videogames/platforms` `(ritorna tutte le piattaforme nel db in ordine ascendente)`
+    - `GET` `/videogames/platforms/:id/` `(ritorna una specifica piattaforma)`
+  - [Videogiochi - libreria](#videogiochi-generali)
+    - `GET` `/libraries/videogames/` `(ritorna tutti i videogiochi presenti nella libreria dell'utente)`
+    - `POST` `/libraries/videogames/:id` `(inserisce un videogioco nella libreria dell'utente)`
+    - `GET` `/libraries/videogames/:id` `(ritorna un videogioco nella libreria dell'utente)`
+    - `PUT` `/libraries/videogames/:id` `(modifica i dettagli di un videogioco nella libreria dell'utente)`
+    - `DELETE` `/libraries/videogames/:id` `(rimuove un videogioco dalla libreria dell'utente)`
+  - [Videogiochi - rating (valutazioni)](#videogiochi-rating-valutazioni)
+    - `GET` `/libraries/videogames/:id/rating` `(ritorna una valutazione di un videogioco nella libreria dell'utente)`
+    - `POST` `/libraries/videogames/:id/rating` `(aggiunge una valutazione di un videogioco nella libreria dell'utente)`
+    - `PUT` `/libraries/videogames/:id/rating` `(modifica i dettagli di una valutazione di un videogioco nella libreria dell'utente)`
+    - `DELETE` `/libraries/videogames/:id/rating` `(rimuove una valutazione di un videogioco dalla libreria dell'utente)`
+  - [Videogiochi - statistiche](#videogiochi-statistiche)
+    - `GET` `/libraries/videogames/charts/completed` `(restituisce il numero di giochi 'completati' dall'utente loggato)`
+    - `GET` `/libraries/videogames/charts/finished` `(restituisce il numero di giochi 'finiti' dall'utente loggato)`
+    - `GET` `/libraries/videogames/charts/to-play` `(restituisce il numero di giochi 'da giocare' dall'utente loggato)`
+    - `GET` `/libraries/videogames/charts/abandoned` `(restituisce il numero di giochi 'abbandonati' dall'utente loggato)`
+    - `GET` `/libraries/videogames/charts/now-playing` `(restituisce il numero di giochi 'in corso' dall'utente loggato)`
+    - `GET` `/libraries/videogames/charts/completed-and-finished` `(restituisce il numero di giochi 'completati' e 'finiti' dall'utente loggato)`
+    - `GET` `/libraries/videogames/charts/total` `(restituisce il numero totale di giochi nella libreria dell'utente loggato)`
+    - `GET` `/libraries/videogames/charts/top-20` `(restituisce i venti giochi nella libreria dell'utente loggato che hanno il punteggio piu alto)`
+    - `GET` `/libraries/videogames/charts/top-platform` (restituisce la piattaforma dove l'utente ha finito piu giochi)
+    - `GET` `/libraries/videogames/charts/most-used-platform` `(restituisce la piattaforma dove l'utente ha inserito piu giochi, non contando quelli 'da giocare')`
+    - `GET` `/libraries/videogames/charts/total-bought` `(restituisce il numero di giochi acquistati dall'utente)`
 ----------------------------------
-#### Autenticazione
+### Autenticazione
 <details>
  <summary><code>POST</code> <code>/register</code> <code>(permette ai nuovi utenti di registrarsi)</code></summary>
 
@@ -70,7 +120,7 @@ L'url da anteporre prima di tutte le richieste é: `/api/v1/`
 > Queste sono le uniche tre route accessibili da chiunque. Per tutte le altre occorre essere loggato.
 
 ------------------------------------------------------------------------------------------
-#### Route basic
+### Route basic
 
 <details>
  <summary><code>GET</code> <code>/profile</code> <code>(ritorna i dati dell'utente loggato in quel momento)</code></summary>
@@ -136,10 +186,10 @@ L'url da anteporre prima di tutte le richieste é: `/api/v1/`
 </details>
 
 ------------------------------------------------------------------------------------------
-#### Route admin
+### Route admin
 Queste route possono essere utilizzate solamente dagli admin.
 
-##### Gestione videogiochi
+#### Gestione videogiochi
 
 <details>
 <summary><code>POST</code> <code>/videogames</code> <code>(inserisce un nuovo videogioco all'interno del db interno)</code></summary>
@@ -304,10 +354,10 @@ Nella documentazione, viene definito 'videogioco sorgente' quello uscito cronolo
 </details>
 
 ------------------------------------------------------------------------------------------
-#### Route utente
+### Route utente
 Queste route possono essere utilizzate dagli utenti loggati.
 
-##### Videogiochi - generali
+#### Videogiochi - generali
 
 <details>
 <summary><code>GET</code> <code>/videogames/</code> <code>(ritorna tutti i videogiochi presenti nel db interno)</code></summary>
