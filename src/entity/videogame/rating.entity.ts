@@ -17,10 +17,11 @@ export class Rating {
     @Column({unique: true})
     id: number;
 
-    @Column({nullable: true})
+    @Column({nullable: true,
+        length: 5000})
     comment: string;
 
-    @Column({default: "0"})
+    @Column({default: 0})
     ranking: number;
 
     @Column({default: true})
