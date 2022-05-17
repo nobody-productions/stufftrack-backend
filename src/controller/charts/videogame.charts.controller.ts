@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
-import {Status, UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
-import {getManager, getRepository} from "typeorm";
-import {User} from "../../entity/user.entity";
+import {Status} from "../../entity/videogame/videogame.user.library.entity";
+import {getManager} from "typeorm";
 
 export const TotalCompletedGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(vg_videogame.name)\n' +
