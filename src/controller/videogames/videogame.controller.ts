@@ -2,6 +2,10 @@ import {Request, Response} from "express";
 import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
+import {
+    CreateVideogameValidation,
+    UpdateVideogameValidation,
+} from "../../validation/videogame.validation";
 
 // get all videogames
 export const Videogames = async (req: Request, res: Response) => {
@@ -52,13 +56,34 @@ export const GetVideogameRemake = async (req: Request, res: Response) => {
 
 // admin cmd
 export const CreateVideogame = async(req: Request, res: Response) => {
+    // chk: errori in input
+    const {error} = CreateVideogameValidation.validate(req.body);
+    if(error) {
+        return res.status(400).send(error.details);
+    }
+
     const repository = getManager().getRepository(Videogame);
-    const videogame = await repository.save(req.body);
+
+    let videogame: any
+    try {
+        videogame = await repository.save(req.body);
+    } catch (error) {
+    //    return res.status(400).send({message: "error while saving, make sure you didn't already saved this game and try again"});
+        // TODO: due videogiochi possono avere gli stessi dati -> fix temporaneo: il nome é unico
+        // TODO: un videogioco deve avere anche per forza una casa di sviluppo ecc ecc, ma se facciamo il fetch da un altro sistema, questa cosa viene automaticamente soddisfatta.
+        return res.status(400).send({message: "error while saving, make sure you didn't already saved this game and try again"});
+    }
 
     res.status(201).send(videogame);
 }
 
 export const UpdateVideogame = async(req: Request, res: Response) => {
+    // chk: errori in input
+    const {error} = UpdateVideogameValidation.validate(req.body);
+    if(error) {
+        return res.status(400).send(error.details);
+    }
+
     await getRepository(Videogame).createQueryBuilder()
         .update()
         .set(req.body)
