@@ -95,7 +95,6 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
         return res.status(400).send({message: "error while saving, make sure you didn't already saved this file and try again"});
     }
 
-    // TODO: sistemare in caso di duplicati
     return res.status(201).send(videogame);
 }
 
