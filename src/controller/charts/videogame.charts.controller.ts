@@ -77,3 +77,17 @@ export const GetNumberCompletedAndFinishedGames = async(req: Request, res: Respo
 
     return res.status(200).send(result)
 }
+
+export const Top20VideogamesEver = async(req: Request, res: Response) => {
+    const query = 'select r.ranking, vg.name ' +
+        'from vg_rating r ' +
+        'join vg_videogame vg on r.videogame = vg.id ' +
+        'join "user" on r.user = "user".id ' +
+        'AND "user".id = ' + req['user'].id +
+        'order by r.ranking desc ' +
+        'limit 20;'
+
+    const result = await getManager().query(query)
+
+    return res.status(200).send(result)
+}
