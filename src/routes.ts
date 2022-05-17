@@ -110,7 +110,7 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/videogames/charts/now-playing', AuthMiddleware, GetNumberNowPlayingGames)
     router.get('/api/v1/libraries/videogames/charts/completed-and-finished', AuthMiddleware, GetNumberCompletedAndFinishedGames)
     router.get('/api/v1/libraries/videogames/charts/total', AuthMiddleware, TotalVideogamesEver)
-    router.get('/api/v1/libraries/videogames/charts/top20', AuthMiddleware, Top20VideogamesEver)
+    router.get('/api/v1/libraries/videogames/charts/top-20', AuthMiddleware, Top20VideogamesEver)
     router.get('/api/v1/libraries/videogames/charts/total-bought', AuthMiddleware, TotalBought)
 
 }
