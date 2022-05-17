@@ -1,10 +1,8 @@
 import {Request, Response} from "express";
-import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
+import {createQueryBuilder, getManager, getRepository} from "typeorm";
 import {UserVideogame} from "../../entity/videogame/videogame.user.library";
 import { Videogame } from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
-import {Rating} from "../../entity/videogame/rating.entity";
-import {RegisterValidation} from "../../validation/register.validation";
 import {
     VideogameUserLibraryValidation
 } from "../../validation/userlibrary.validation";
@@ -23,18 +21,16 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
     });
 
     // mi prendo le piattaforme
+    // e unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
     for(let i = 0; i < data.length; i++) {
-        const platOnly = await getManager().getRepository(Platform)
+        data[i]['videogame'].platforms = await getManager().getRepository(Platform)
             .createQueryBuilder()
             .select('vg_platform')
             .from(Platform, "vg_platform")
             .innerJoin('vg_videogame_platform', 'vg_videogame_platform', 'vg_platform.id = vg_videogame_platform.platform_id')
             .innerJoin('vg_videogame', 'vg_videogame', 'vg_videogame.id = vg_videogame_platform.videogame_id')
             .andWhere("vg_videogame.id = :id", {id: data[i]['videogame']['id']})
-        const platOnlyRes = await platOnly.getMany();
-
-        // unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
-        data[i]['videogame'].platforms = platOnlyRes
+            .getMany();
     }
 
     res.send({
