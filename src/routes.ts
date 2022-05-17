@@ -86,7 +86,13 @@ export const routes = (router: Router) => {
         - add / edit / remove the rating of a specific videogame in userlib
 
         VIDEOGAMES INTEGRATION - CHARTS
-        - based on a number, it return
+        - total number of completed, finished, 'to play', abandoned, now playing, completed and finished games
+        - total number of games in user library
+        - top 20 videogames ever: videogames with highest ranking in user library
+        - top platform: where user has finished most games
+        - most used platform: where user has done anything (but 'to play')
+        - total bought: the number of bought games by the user
+
     */
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)
     router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, CheckIdParamMiddleware, GetVideogameRemake)
