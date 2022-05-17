@@ -15,9 +15,13 @@ createConnection().then(connection => {
         credentials: true,      // frontend now can access cookies
         origin: ["http://localhost:8800"]
     }));
-    
+
+    app.use(function(err, req, res, next) {
+        res.status(500).send({message: 'oh-oh, something\'s wrong!'});
+    });
+
     routes(app);
-    
+
     app.listen(8000, () => {
         console.log("Listening to port 8000")
     });
