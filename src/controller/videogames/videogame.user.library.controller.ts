@@ -45,6 +45,7 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
 }
 
 export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
+
     // mi prendo le piattaforme
     const platOnly = await getManager().getRepository(Platform)
         .createQueryBuilder()
@@ -133,7 +134,7 @@ export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => 
     // chk: is a number and not a string or smth else
     // chk: is an integer
     // chk: is between supported postgres range 1 and 2147483647
-    if (isValidPostgresNumber(req.params.id)) {
+    if (!isValidPostgresNumber(req.params.id)) {
         return res.status(400).send({message: "game id must be a valid number!"})
     }
 
