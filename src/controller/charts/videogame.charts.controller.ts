@@ -110,7 +110,11 @@ export const TotalVideogamesEver = async(req: Request, res: Response) => {
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
         'JOIN "user" ON "user".id = vg_user_videogame."user"\n' +
-        'AND "user".id = ' + req['user'].id + ';\n'
+        'AND "user".id = ' + req['user'].id + '\n' +
+        'AND (vg_user_videogame.status = \'' + Status.COMPLETATO + '\'' +
+        'OR vg_user_videogame.status = \'' + Status.FINITO + '\' ' +
+        'OR vg_user_videogame.status = \'' + Status.ABBANDONATO + '\' ' +
+        'OR vg_user_videogame.status = \'' + Status.IN_CORSO + '\');'
 
     const result = await getManager().query(query)
 
