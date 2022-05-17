@@ -92,7 +92,7 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
     try {
         videogame = await repository.save(req.body);
     } catch (error) {
-        return res.status(400).send({message: "error while saving, make sure you didn't already saved this file and try again"});
+        return res.status(400).send({message: "error while saving, make sure you didn't already saved this game and try again"});
     }
 
     return res.status(201).send(videogame);
