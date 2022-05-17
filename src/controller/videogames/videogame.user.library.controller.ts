@@ -101,20 +101,35 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
 
 export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => {
     const oldV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
-    await getRepository(UserVideogame).createQueryBuilder()
-        .update()
-        .set(req.body)
-        .andWhere(`videogame = :videogame`, { videogame: oldV.id})
-        .andWhere(`user = :user`, { user: req['user'].id})
-        .execute();
 
-    const actualV = await createQueryBuilder('vg_user_videogame', 'uvg')
-        .innerJoinAndSelect('uvg.videogame', 'vg')
-        .innerJoinAndSelect('uvg.platform', 'platform')
-        .andWhere({'user': req['user']})
-        .andWhere({'videogame': parseInt(req.params.id)})
-        .getOne()
-    return res.status(200).send(actualV)
+    // chk: errori in input
+    if(oldV === null) {
+        return res.status(400).send({message: "videogame does not exists!"});
+    }
+
+    req.body.videogame = req.params.id
+    const {error} = VideogameUserLibraryValidation.validate(req.body);
+    if(error) {
+        return res.status(400).send(error.details);
+    }
+    try {
+        await getRepository(UserVideogame).createQueryBuilder()
+            .update()
+            .set(req.body)
+            .andWhere(`videogame = :videogame`, { videogame: oldV.id})
+            .andWhere(`user = :user`, { user: req['user'].id})
+            .execute();
+
+        const actualV = await createQueryBuilder('vg_user_videogame', 'uvg')
+            .innerJoinAndSelect('uvg.videogame', 'vg')
+            .innerJoinAndSelect('uvg.platform', 'platform')
+            .andWhere({'user': req['user']})
+            .andWhere({'videogame': parseInt(req.params.id)})
+            .getOne()
+        return res.status(200).send(actualV)
+    } catch (error) {
+        return res.status(400).send(error.details);
+    }
 }
 
 
