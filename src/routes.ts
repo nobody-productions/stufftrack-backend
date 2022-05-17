@@ -23,6 +23,11 @@ import {
 import {CreateRemake, DeleteRemake} from "./controller/videogames/remake.controller";
 import {PermissionMiddleware} from "./middleware/permission.middleware";
 import {CheckIdParamMiddleware} from "./middleware/checkidparam.middleware";
+import {
+    GetNumberAbandonedGames,
+    GetNumberCompletedGames,
+    GetNumberFinishedGames, GetNumberNowPlayingGames, GetNumberToPlayGames,
+} from "./controller/charts/videogame.charts.controller";
 
 export const routes = (router: Router) => {
     /*
@@ -71,6 +76,9 @@ export const routes = (router: Router) => {
         VIDEOGAMES INTEGRATION - RATING
         - get the rating of a specific videogame in userlib
         - add / edit / remove the rating of a specific videogame in userlib
+
+        VIDEOGAMES INTEGRATION - CHARTS
+        - based on a number, it return
     */
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)
     router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, CheckIdParamMiddleware, GetVideogameRemake)
@@ -88,6 +96,11 @@ export const routes = (router: Router) => {
     router.put('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, UpdateVideogameUserLibraryRating)
     router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, DeleteVideogameUserLibraryRating)
 
-
+    // all charts refer to the logged user
+    router.get('/api/v1/libraries/videogames/charts/completed', AuthMiddleware, GetNumberCompletedGames)
+    router.get('/api/v1/libraries/videogames/charts/finished', AuthMiddleware, GetNumberFinishedGames)
+    router.get('/api/v1/libraries/videogames/charts/to-play', AuthMiddleware, GetNumberToPlayGames)
+    router.get('/api/v1/libraries/videogames/charts/abandoned', AuthMiddleware, GetNumberAbandonedGames)
+    router.get('/api/v1/libraries/videogames/charts/now-playing', AuthMiddleware, GetNumberNowPlayingGames)
 
 }
