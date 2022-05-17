@@ -30,6 +30,7 @@ import {
     GetNumberFinishedGames,
     GetNumberNowPlayingGames,
     GetNumberToPlayGames,
+    MostUsedPlatform,
     Top20VideogamesEver,
     TopPlatform,
     TotalBought,
@@ -113,6 +114,7 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/videogames/charts/total', AuthMiddleware, TotalVideogamesEver)
     router.get('/api/v1/libraries/videogames/charts/top-20', AuthMiddleware, Top20VideogamesEver)
     router.get('/api/v1/libraries/videogames/charts/top-platform', AuthMiddleware, TopPlatform)
+    router.get('/api/v1/libraries/videogames/charts/most-used-platform', AuthMiddleware, MostUsedPlatform)
     router.get('/api/v1/libraries/videogames/charts/total-bought', AuthMiddleware, TotalBought)
 
 }
