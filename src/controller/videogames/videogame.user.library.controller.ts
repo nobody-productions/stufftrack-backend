@@ -45,6 +45,9 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
 }
 
 export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
+    if (!isValidPostgresNumber(req.params.id)) {
+        return res.status(400).send({message: "game id must be a valid number!"})
+    }
 
     // mi prendo le piattaforme
     const platOnly = await getManager().getRepository(Platform)
@@ -74,6 +77,13 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
 
 // NOTA: crea una relationship tra gioco esistente nel db e utente loggato
 export const CreateVideogameUserLibrary = async(req: Request, res: Response) => {
+    if (!isValidPostgresNumber(req.params.id)) {
+        return res.status(400).send({message: "game id must be a valid number!"})
+    }
+    if (!isValidPostgresNumber(req.body.platform)) {
+        return res.status(400).send({message: "platform id must be a valid number!"})
+    }
+
     const repository = getManager().getRepository(UserVideogame);
 
     // forza lo user id dell'utente loggato cosi in caso di dati "strani" vengono fatti sull'utente corrente
@@ -97,6 +107,10 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
 }
 
 export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => {
+    if (!isValidPostgresNumber(req.params.id)) {
+        return res.status(400).send({message: "game id must be a valid number!"})
+    }
+
     const oldV = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
 
     // chk: errori in input
@@ -105,6 +119,7 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
     }
 
     req.body.videogame = req.params.id
+
     const {error} = VideogameUserLibraryValidation.validate(req.body);
     if(error) {
         return res.status(400).send(error.details);
@@ -131,9 +146,6 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
 
 
 export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => {
-    // chk: is a number and not a string or smth else
-    // chk: is an integer
-    // chk: is between supported postgres range 1 and 2147483647
     if (!isValidPostgresNumber(req.params.id)) {
         return res.status(400).send({message: "game id must be a valid number!"})
     }
