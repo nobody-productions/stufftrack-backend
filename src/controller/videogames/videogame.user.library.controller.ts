@@ -129,8 +129,19 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
 
 
 export const DeleteVideogameUserLibrary = async(req: Request, res: Response) => {
-    // parametri: videogame -> id: number
+    // chk: is a number and not a string or smth else
+    // chk: is an integer
+    // chk: is between supported postgres range 1 and 2147483647
+    if(isNaN(Number(req.params.id)) || !Number.isInteger(parseInt(req.params.id)) || ! (parseInt(req.params.id) > 1 && parseInt(req.params.id) < 2147483647)) {
+        return res.status(400).send({message: "game id must be a valid number!"})
+    }
+
     const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
+
+    if(vg == undefined) {
+        return res.status(404).send({message: "game not found!"})
+    }
+
     await getRepository(UserVideogame).createQueryBuilder()
         .delete()
         .andWhere(`videogame = :videogame`, { videogame: vg.id})
