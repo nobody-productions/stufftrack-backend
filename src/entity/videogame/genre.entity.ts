@@ -6,8 +6,7 @@ export class Genre {
     id: number
 
     @Column({
-        unique: true,
-        length: 32
+        unique: true
     })
     name: string
 }

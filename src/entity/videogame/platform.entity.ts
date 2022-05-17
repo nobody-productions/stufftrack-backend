@@ -6,14 +6,12 @@ export class Platform {
     id: number;
 
     @Column({
-        unique: true,
-        length: 128
+        unique: true
     })
     name: string;
 
     @Column({
-        unique: true,
-        length: 5
+        unique: true
     })
     codename: string;
 }

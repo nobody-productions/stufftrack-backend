@@ -15,16 +15,16 @@ export class Videogame {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({unique: true, length: 128})
+    @Column({unique: true})
     name: string
 
-    @Column({length: 5000, type: "text"})
+    @Column({type: "text"})
     description: string
 
-    @Column({length: 4})
+    @Column()
     year: number
 
-    @Column({default: "/images/videogames/cover/default_videogame.png", length: 512})
+    @Column({default: "/images/videogames/cover/default_videogame.png"})
     image: string
 
     @ManyToMany(() => Platform)
