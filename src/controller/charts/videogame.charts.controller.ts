@@ -129,7 +129,7 @@ export const TopPlatform = async(req: Request, res: Response) => {
         'AND (vg_user_videogame.status = \'' + Status.COMPLETATO + '\'' +
         'OR vg_user_videogame.status = \'' + Status.FINITO + '\') ' +
         'GROUP BY vg_platform.name\n' +
-        'ORDER BY "Number of games" DESC LIMIT 1;'
+        'ORDER BY "number of games" DESC LIMIT 1;'
     const result = await getManager().query(query)
 
     return res.status(200).send(result)
@@ -137,7 +137,7 @@ export const TopPlatform = async(req: Request, res: Response) => {
 
 // piattaforma sul quale hai più videogiochi (tranne quelli ancora da giocare)
 export const MostUsedPlatform = async(req: Request, res: Response) => {
-    const query = 'SELECT vg_platform.name "Platform", COUNT(vg_videogame.name) "Number of games"\n' +
+    const query = 'SELECT vg_platform.name "platform", COUNT(vg_videogame.name) "number of games"\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
         'JOIN vg_videogame_platform ON vg_videogame.id = vg_videogame_platform.videogame_id\n' +
@@ -149,7 +149,7 @@ export const MostUsedPlatform = async(req: Request, res: Response) => {
         'OR vg_user_videogame.status = \'' + Status.ABBANDONATO + '\' ' +
         'OR vg_user_videogame.status = \'' + Status.IN_CORSO + '\') ' +
         'GROUP BY vg_platform.name\n' +
-        'ORDER BY "Number of games" DESC LIMIT 1;'
+        'ORDER BY "number of games" DESC LIMIT 1;'
     const result = await getManager().query(query)
 
     return res.status(200).send(result)
