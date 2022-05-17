@@ -8,7 +8,7 @@ export const GetNumberCompletedGames = async(req: Request, res: Response) => {
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
         'JOIN "user" ON "user".id = vg_user_videogame."user"\n' +
         'AND "user".id = ' + req['user'].id + ' AND vg_user_videogame.status = \'' + Status.COMPLETATO + '\';\n'
-    console.log(query)
+
     const result = await getManager().query(query)
 
     return res.status(200).send(result)
@@ -86,6 +86,19 @@ export const Top20VideogamesEver = async(req: Request, res: Response) => {
         'AND "user".id = ' + req['user'].id +
         'order by r.ranking desc ' +
         'limit 20;'
+
+    const result = await getManager().query(query)
+
+    return res.status(200).send(result)
+}
+
+export const TotalBought = async(req: Request, res: Response) => {
+    const query = ' SELECT COUNT(*)\n' +
+        'FROM vg_user_videogame\n' +
+        'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
+        'JOIN "user" ON "user".id = vg_user_videogame."user"\n' +
+        'AND "user".id = ' + req['user'].id +
+        'AND vg_user_videogame.bought = true;\n'
 
     const result = await getManager().query(query)
 
