@@ -22,6 +22,7 @@ import {
 } from "./controller/videogames/rating.controller";
 import {CreateRemake, DeleteRemake} from "./controller/videogames/remake.controller";
 import {PermissionMiddleware} from "./middleware/permission.middleware";
+import {CheckIdParamMiddleware} from "./middleware/checkidparam.middleware";
 
 export const routes = (router: Router) => {
     /*
@@ -72,20 +73,20 @@ export const routes = (router: Router) => {
         - add / edit / remove the rating of a specific videogame in userlib
     */
     router.get("/api/v1/videogames", AuthMiddleware, Videogames)
-    router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, GetVideogameRemake)
+    router.get('/api/v1/videogames/:id/remakes', AuthMiddleware, CheckIdParamMiddleware, GetVideogameRemake)
     router.get("/api/v1/videogames/platforms", AuthMiddleware, Platforms)
-    router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, GetPlatform)
+    router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, CheckIdParamMiddleware, GetPlatform)
 
     router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)
-    router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, GetVideogameUserLibrary)
-    router.post('/api/v1/libraries/videogames/:id', AuthMiddleware, CreateVideogameUserLibrary)
-    router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, UpdateVideogameUserLibrary)
-    router.delete('/api/v1/libraries/videogames/:id', AuthMiddleware, DeleteVideogameUserLibrary)
+    router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, GetVideogameUserLibrary)
+    router.post('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, CreateVideogameUserLibrary)
+    router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, UpdateVideogameUserLibrary)
+    router.delete('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, DeleteVideogameUserLibrary)
 
-    router.get('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, GetVideogameUserLibraryRating)
-    router.post('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CreateVideogameUserLibraryRating)
-    router.put('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, UpdateVideogameUserLibraryRating)
-    router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, DeleteVideogameUserLibraryRating)
+    router.get('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, GetVideogameUserLibraryRating)
+    router.post('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, CreateVideogameUserLibraryRating)
+    router.put('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, UpdateVideogameUserLibraryRating)
+    router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, DeleteVideogameUserLibraryRating)
 
 
 
