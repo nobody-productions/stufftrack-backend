@@ -1,5 +1,5 @@
 import {createConnections, getManager} from "typeorm";
-import {Status, UserVideogame} from "../../entity/videogame/videogame.user.library";
+import {Status, UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
 import { Videogame } from "../../entity/videogame/videogame.entity";
 import {User} from "../../entity/user.entity";
 import {Platform} from "../../entity/videogame/platform.entity";

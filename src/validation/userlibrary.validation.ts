@@ -1,5 +1,5 @@
 import {Joi} from "express-validation";
-import {Status} from "../entity/videogame/videogame.user.library";
+import {Status} from "../entity/videogame/videogame.user.library.entity";
 
 export const VideogameUserLibraryValidation = Joi.object({
     finished: Joi.date(),
