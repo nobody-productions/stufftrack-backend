@@ -104,7 +104,7 @@ export const UpdateVideogameUserLibrary = async(req: Request, res: Response) => 
 
     // chk: errori in input
     if(oldV === null) {
-        return res.status(400).send({message: "videogame does not exists!"});
+        return res.status(404).send({message: "game not found!"});
     }
 
     req.body.videogame = req.params.id
