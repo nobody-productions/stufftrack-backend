@@ -24,12 +24,12 @@ import {CreateRemake, DeleteRemake} from "./controller/videogames/remake.control
 import {PermissionMiddleware} from "./middleware/permission.middleware";
 import {CheckIdParamMiddleware} from "./middleware/checkidparam.middleware";
 import {
-    GetNumberAbandonedGames,
-    GetNumberCompletedAndFinishedGames,
-    GetNumberCompletedGames,
-    GetNumberFinishedGames,
-    GetNumberNowPlayingGames,
-    GetNumberToPlayGames,
+    TotalAbandonedGames,
+    TotalCompletedAndFinishedGames,
+    TotalCompletedGames,
+    TotalFinishedGames,
+    TotalNowPlayingGames,
+    TotalToPlayGames,
     MostUsedPlatform,
     Top20VideogamesEver,
     TopPlatform,
@@ -105,12 +105,12 @@ export const routes = (router: Router) => {
     router.delete('/api/v1/libraries/videogames/:id/rating', AuthMiddleware, CheckIdParamMiddleware, DeleteVideogameUserLibraryRating)
 
     // all charts refer to the logged user
-    router.get('/api/v1/libraries/videogames/charts/completed', AuthMiddleware, GetNumberCompletedGames)
-    router.get('/api/v1/libraries/videogames/charts/finished', AuthMiddleware, GetNumberFinishedGames)
-    router.get('/api/v1/libraries/videogames/charts/to-play', AuthMiddleware, GetNumberToPlayGames)
-    router.get('/api/v1/libraries/videogames/charts/abandoned', AuthMiddleware, GetNumberAbandonedGames)
-    router.get('/api/v1/libraries/videogames/charts/now-playing', AuthMiddleware, GetNumberNowPlayingGames)
-    router.get('/api/v1/libraries/videogames/charts/completed-and-finished', AuthMiddleware, GetNumberCompletedAndFinishedGames)
+    router.get('/api/v1/libraries/videogames/charts/completed', AuthMiddleware, TotalCompletedGames)
+    router.get('/api/v1/libraries/videogames/charts/finished', AuthMiddleware, TotalFinishedGames)
+    router.get('/api/v1/libraries/videogames/charts/to-play', AuthMiddleware, TotalToPlayGames)
+    router.get('/api/v1/libraries/videogames/charts/abandoned', AuthMiddleware, TotalAbandonedGames)
+    router.get('/api/v1/libraries/videogames/charts/now-playing', AuthMiddleware, TotalNowPlayingGames)
+    router.get('/api/v1/libraries/videogames/charts/completed-and-finished', AuthMiddleware, TotalCompletedAndFinishedGames)
     router.get('/api/v1/libraries/videogames/charts/total', AuthMiddleware, TotalVideogamesEver)
     router.get('/api/v1/libraries/videogames/charts/top-20', AuthMiddleware, Top20VideogamesEver)
     router.get('/api/v1/libraries/videogames/charts/top-platform', AuthMiddleware, TopPlatform)

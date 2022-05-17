@@ -3,7 +3,7 @@ import {Status, UserVideogame} from "../../entity/videogame/videogame.user.libra
 import {getManager, getRepository} from "typeorm";
 import {User} from "../../entity/user.entity";
 
-export const GetNumberCompletedGames = async(req: Request, res: Response) => {
+export const TotalCompletedGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(vg_videogame.name)\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -15,7 +15,7 @@ export const GetNumberCompletedGames = async(req: Request, res: Response) => {
     return res.status(200).send(result)
 }
 
-export const GetNumberFinishedGames = async(req: Request, res: Response) => {
+export const TotalFinishedGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(vg_videogame.name)\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -27,7 +27,7 @@ export const GetNumberFinishedGames = async(req: Request, res: Response) => {
     return res.status(200).send(result)
 }
 
-export const GetNumberToPlayGames = async(req: Request, res: Response) => {
+export const TotalToPlayGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(vg_videogame.name)\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -39,7 +39,7 @@ export const GetNumberToPlayGames = async(req: Request, res: Response) => {
     return res.status(200).send(result)
 }
 
-export const GetNumberAbandonedGames = async(req: Request, res: Response) => {
+export const TotalAbandonedGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(vg_videogame.name)\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -51,7 +51,7 @@ export const GetNumberAbandonedGames = async(req: Request, res: Response) => {
     return res.status(200).send(result)
 }
 
-export const GetNumberNowPlayingGames = async(req: Request, res: Response) => {
+export const TotalNowPlayingGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(vg_videogame.name)\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -64,7 +64,7 @@ export const GetNumberNowPlayingGames = async(req: Request, res: Response) => {
 }
 
 
-export const GetNumberCompletedAndFinishedGames = async(req: Request, res: Response) => {
+export const TotalCompletedAndFinishedGames = async(req: Request, res: Response) => {
     const query = 'SELECT COUNT(DISTINCT (vg_videogame.name))\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
