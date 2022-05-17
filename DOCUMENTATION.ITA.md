@@ -611,3 +611,235 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | 204 | null |
 
 </details>
+
+#### Videogiochi - Statistiche
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/completed</code> <code>(restituisce il numero di giochi 'completati' dall'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/finished</code> <code>(restituisce il numero di giochi 'finiti' dall'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/to-play</code> <code>(restituisce il numero di giochi 'da giocare' dall'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/abandoned</code> <code>(restituisce il numero di giochi 'abbandonati' dall'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/now-playing</code> <code>(restituisce il numero di giochi 'in corso' dall'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/completed-and-finished</code> <code>(restituisce il numero di giochi 'completati' e 'finiti' dall'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/total</code> <code>(restituisce il numero totale di giochi nella libreria dell'utente loggato)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/top-20</code> <code>(restituisce i venti giochi nella libreria dell'utente loggato che hanno il punteggio piu alto)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json: [{"ranking": numero, "name": nome_videogioco}...] |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/top-platform</code> <code>(restituisce la piattaforma dove l'utente ha finito piu giochi)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json: {"platform": nome_piattaforma, "number of games": numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/most-used-platform</code> <code>(restituisce la piattaforma dove l'utente ha inserito piu giochi, non contando quelli 'da giocare')</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json: {"platform": nome_piattaforma, "number of games": numero} |
+
+</details>
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/total-bought</code> <code>(restituisce il numero di giochi acquistati dall'utente)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
