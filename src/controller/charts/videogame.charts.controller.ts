@@ -106,7 +106,7 @@ export const TotalBought = async(req: Request, res: Response) => {
 }
 
 export const TotalVideogamesEver = async(req: Request, res: Response) => {
-    const query = ' SELECT COUNT(*)\n' +
+    const query = ' SELECT COUNT(DISTINCT(vg_videogame.name))\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
         'JOIN "user" ON "user".id = vg_user_videogame."user"\n' +
