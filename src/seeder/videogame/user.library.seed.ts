@@ -43,7 +43,7 @@ createConnections().then(async () => {
     })
 
     vgTarget = await getManager().getRepository(Videogame).findOne({where: {id: 2}})
-    platformTarget = await getManager().getRepository(Platform).findOne({where: {codename: "SMS"}})
+    platformTarget = await getManager().getRepository(Platform).findOne({where: {codename: "MD"}})
 
     await ownRepo.save({
         hours: 100,
