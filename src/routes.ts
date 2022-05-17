@@ -24,7 +24,7 @@ import {CreateRemake, DeleteRemake} from "./controller/videogames/remake.control
 import {PermissionMiddleware} from "./middleware/permission.middleware";
 import {CheckIdParamMiddleware} from "./middleware/checkidparam.middleware";
 import {
-    GetNumberAbandonedGames,
+    GetNumberAbandonedGames, GetNumberCompletedAndFinishedGames,
     GetNumberCompletedGames,
     GetNumberFinishedGames, GetNumberNowPlayingGames, GetNumberToPlayGames,
 } from "./controller/charts/videogame.charts.controller";
@@ -102,5 +102,6 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/videogames/charts/to-play', AuthMiddleware, GetNumberToPlayGames)
     router.get('/api/v1/libraries/videogames/charts/abandoned', AuthMiddleware, GetNumberAbandonedGames)
     router.get('/api/v1/libraries/videogames/charts/now-playing', AuthMiddleware, GetNumberNowPlayingGames)
+    router.get('/api/v1/libraries/videogames/charts/completed-and-finished', AuthMiddleware, GetNumberCompletedAndFinishedGames)
 
 }
