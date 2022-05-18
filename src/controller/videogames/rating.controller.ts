@@ -36,9 +36,10 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
     req.body.videogame = vgTarget.id
 
     // chk: rating already exists
-    const chkRating = await getRepository(Rating).createQueryBuilder()
-        .andWhere(`Rating.videogame = :videogame`, { videogame: vgTarget.id})
-        .andWhere(`Rating.user = :user`, { user: userTarget.id})
+    const chkRating = await getRepository("vg_rating").createQueryBuilder()
+        .innerJoin("vg_user_videogame", "vg_user_videogame", "vg_user_videogame.rating = Rating.id")
+        .andWhere("vg_user_videogame.videogame = :id", { id: parseInt(req.params.id) })
+        .andWhere('vg_user_videogame."user" = :user_id', { user_id: req['user'].id })
         .getOne();
 
     if(chkRating !== null) {
@@ -47,8 +48,24 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
 
     const rating = await repository.save(req.body);
 
-    if(rating !== null) {
-        delete rating.user
+    ///
+    // vg_user_videogame needs to be updated
+    ////
+    const uvgRepo = await getManager().getRepository(UserVideogame)
+    const uvg = await uvgRepo.createQueryBuilder()
+        .andWhere({user: userTarget})
+        .andWhere({videogame: vgTarget})
+        .getOne()
+    uvg.rating = rating
+
+    let result = await uvgRepo.createQueryBuilder()
+        .andWhere('user = :user', { user: userTarget.id })
+        .andWhere('videogame = :videogame', { videogame: vgTarget.id })
+        .update(UserVideogame)
+        .set({rating: rating})
+        .execute()
+
+    if(result !== null) {
         return res.status(201).send(rating)
     }
     else
