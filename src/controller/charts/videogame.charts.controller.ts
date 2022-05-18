@@ -159,3 +159,14 @@ export const MostUsedPlatform = async(req: Request, res: Response) => {
 
     return res.status(200).send(result)
 }
+
+export const TotalHours = async(req: Request, res: Response) => {
+    const query = ' SELECT SUM(hours) "total"\n' +
+        'FROM vg_user_videogame uvg\n' +
+        'WHERE uvg.user = ' + req['user'].id + ';\n'
+
+    const result = await getManager().query(query)
+
+    // if we don't put this zero, we will return our result into an array item
+    return res.status(200).send(result[0])
+}

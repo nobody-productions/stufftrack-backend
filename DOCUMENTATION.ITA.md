@@ -893,3 +893,25 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | 200 | json fatto in questo modo: {'count': numero} |
 
 </details>
+
+
+<details>
+<summary><code>GET</code> <code>/libraries/videogames/charts/total-hours</code> <code>(numero totale di ore inserite dall'utente)</code></summary>
+
+##### Parametri (URL)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+##### Parametri (body)
+> | nome             | tipo              | obbligatorio             | descrizione           |
+> | -- | -- | -- | -- |
+> | nessuno | - | - | - |
+
+
+##### Codici di risposta
+> | nome | messaggio                                                                                                   |
+> |------|------------------------------------------------------------------------------------------------------------- |
+> | 200 | json fatto in questo modo: {'count': numero} |
+
+</details>
