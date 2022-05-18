@@ -14,7 +14,7 @@ import {Videogame} from "./videogame.entity";
 @Entity({name: 'vg_rating'})
 export class Rating {
     @PrimaryGeneratedColumn()
-    @Column({unique: true})
+    @Column({unique: true, primary: true})
     id: number;
 
     @Column({nullable: true,
@@ -35,14 +35,4 @@ export class Rating {
 
     @UpdateDateColumn({ type: 'timestamptz' })
     updated_at: Date
-
-    @ManyToOne(() => User)
-    @JoinColumn({name: "user"})
-    @PrimaryColumn({type: "int", unique: true})
-    user: User
-
-    @ManyToOne(() => Videogame)
-    @JoinColumn({name: 'videogame'})
-    @PrimaryColumn({type: "int", unique: true})
-    videogame: Videogame
 }
