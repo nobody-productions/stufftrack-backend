@@ -81,8 +81,9 @@ export const TotalCompletedAndFinishedGames = async(req: Request, res: Response)
 export const Top20VideogamesEver = async(req: Request, res: Response) => {
     const query = 'select r.ranking, vg.name ' +
         'from vg_rating r ' +
-        'join vg_videogame vg on r.videogame = vg.id ' +
-        'join "user" on r.user = "user".id ' +
+        'join vg_user_videogame uvg on uvg.rating = r.id ' +
+        'join vg_videogame vg on uvg.videogame = vg.id ' +
+        'join "user" on uvg.user = "user".id ' +
         'AND "user".id = ' + req['user'].id +
         'order by r.ranking desc ' +
         'limit 20;'
@@ -106,11 +107,15 @@ export const TotalBought = async(req: Request, res: Response) => {
 }
 
 export const TotalVideogamesEver = async(req: Request, res: Response) => {
-    const query = ' SELECT COUNT(*)\n' +
+    const query = ' SELECT COUNT(DISTINCT(vg_videogame.name))\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
         'JOIN "user" ON "user".id = vg_user_videogame."user"\n' +
-        'AND "user".id = ' + req['user'].id + ';\n'
+        'AND "user".id = ' + req['user'].id + '\n' +
+        'AND (vg_user_videogame.status = \'' + Status.COMPLETATO + '\'' +
+        'OR vg_user_videogame.status = \'' + Status.FINITO + '\' ' +
+        'OR vg_user_videogame.status = \'' + Status.ABBANDONATO + '\' ' +
+        'OR vg_user_videogame.status = \'' + Status.IN_CORSO + '\');'
 
     const result = await getManager().query(query)
 

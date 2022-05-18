@@ -2,6 +2,7 @@ import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, UpdateDateColum
 import {User} from "../user.entity";
 import {Platform} from "./platform.entity";
 import {Videogame} from "./videogame.entity";
+import {Rating} from "./rating.entity";
 
 export enum Status {
     DA_GIOCARE = "Da giocare",
@@ -45,4 +46,9 @@ export class UserVideogame {
     @JoinColumn({name: "platform"})
     @Column({primary: true})
     platform: Platform
+
+    @ManyToOne(() => Rating, {onDelete: "SET NULL"})
+    @JoinColumn({name: "rating"})
+    @Column({unique: true, nullable: true})
+    rating: Rating
 }

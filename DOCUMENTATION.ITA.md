@@ -47,10 +47,10 @@ L'url da anteporre prima di tutte le richieste é: `/api/v1/`
     - `GET` `/libraries/videogames/charts/abandoned` `(restituisce il numero di giochi 'abbandonati' dall'utente loggato)`
     - `GET` `/libraries/videogames/charts/now-playing` `(restituisce il numero di giochi 'in corso' dall'utente loggato)`
     - `GET` `/libraries/videogames/charts/completed-and-finished` `(restituisce il numero di giochi 'completati' e 'finiti' dall'utente loggato)`
-    - `GET` `/libraries/videogames/charts/total` `(restituisce il numero totale di giochi nella libreria dell'utente loggato)`
+    - `GET` `/libraries/videogames/charts/total` `(restituisce il numero totale di giochi nella libreria dell'utente loggato esclusi quelli 'da giocare')`
     - `GET` `/libraries/videogames/charts/top-20` `(restituisce i venti giochi nella libreria dell'utente loggato che hanno il punteggio piu alto)`
-    - `GET` `/libraries/videogames/charts/top-platform` (restituisce la piattaforma dove l'utente ha finito piu giochi)
-    - `GET` `/libraries/videogames/charts/most-used-platform` `(restituisce la piattaforma dove l'utente ha inserito piu giochi, non contando quelli 'da giocare')`
+    - `GET` `/libraries/videogames/charts/top-platform` `(restituisce la piattaforma dove l'utente ha finito piu giochi)`
+    - `GET` `/libraries/videogames/charts/most-used-platform` `(restituisce la piattaforma dove l'utente ha inserito piu giochi, esclusi quelli 'da giocare')`
     - `GET` `/libraries/videogames/charts/total-bought` `(restituisce il numero di giochi acquistati dall'utente)`
 ----------------------------------
 ### Autenticazione

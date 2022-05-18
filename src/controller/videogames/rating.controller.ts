@@ -4,13 +4,14 @@ import {Rating} from "../../entity/videogame/rating.entity";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {User} from "../../entity/user.entity";
 import {VideogameUserLibraryRatingValidation} from "../../validation/rating.validation";
+import {UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
 
 export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const query = await
-        getRepository(Rating)
-            .createQueryBuilder("")
-            .where("Rating.videogame = :id", { id: parseInt(req.params.id) })
-            .andWhere('Rating.user = :user_id', { user_id: req['user'].id })
+        getRepository("vg_rating").createQueryBuilder()
+            .innerJoin("vg_user_videogame", "vg_user_videogame", "vg_user_videogame.rating = Rating.id")
+            .andWhere("vg_user_videogame.videogame = :id", { id: parseInt(req.params.id) })
+            .andWhere('vg_user_videogame."user" = :user_id', { user_id: req['user'].id })
             .getOne();
 
     if(query !== null) {
@@ -35,9 +36,10 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
     req.body.videogame = vgTarget.id
 
     // chk: rating already exists
-    const chkRating = await getRepository(Rating).createQueryBuilder()
-        .andWhere(`Rating.videogame = :videogame`, { videogame: vgTarget.id})
-        .andWhere(`Rating.user = :user`, { user: userTarget.id})
+    const chkRating = await getRepository("vg_rating").createQueryBuilder()
+        .innerJoin("vg_user_videogame", "vg_user_videogame", "vg_user_videogame.rating = Rating.id")
+        .andWhere("vg_user_videogame.videogame = :id", { id: parseInt(req.params.id) })
+        .andWhere('vg_user_videogame."user" = :user_id', { user_id: req['user'].id })
         .getOne();
 
     if(chkRating !== null) {
@@ -46,8 +48,24 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
 
     const rating = await repository.save(req.body);
 
-    if(rating !== null) {
-        delete rating.user
+    ///
+    // vg_user_videogame needs to be updated
+    ////
+    const uvgRepo = await getManager().getRepository(UserVideogame)
+    const uvg = await uvgRepo.createQueryBuilder()
+        .andWhere({user: userTarget})
+        .andWhere({videogame: vgTarget})
+        .getOne()
+    uvg.rating = rating
+
+    let result = await uvgRepo.createQueryBuilder()
+        .andWhere('user = :user', { user: userTarget.id })
+        .andWhere('videogame = :videogame', { videogame: vgTarget.id })
+        .update(UserVideogame)
+        .set({rating: rating})
+        .execute()
+
+    if(result !== null) {
         return res.status(201).send(rating)
     }
     else
@@ -61,26 +79,37 @@ export const UpdateVideogameUserLibraryRating = async(req: Request, res: Respons
         return res.status(400).send(error.details);
     }
 
+    // get rating target id
+    const ratingTarget = await getRepository(UserVideogame).createQueryBuilder()
+        .andWhere({'user': req['user']})
+        .andWhere({'videogame': parseInt(req.params.id)})
+        .getOne()
+
+    // update rating
     await getRepository(Rating).createQueryBuilder()
         .update()
         .set(req.body)
-        .andWhere(`videogame = :videogame`, { videogame: parseInt(req.params.id)})
-        .andWhere(`user = :user`, { user: req['user'].id})
+        .andWhere(`id = :id`, { id: ratingTarget.rating })
         .execute();
 
-    const updatedRating = await createQueryBuilder('vg_rating', 'vg_rating')
-        .andWhere({'user': req['user']})
-        .andWhere({'videogame': parseInt(req.params.id)})
+    const updatedRating = await getRepository(Rating).createQueryBuilder()
+        .andWhere(`id = :id`, { id: ratingTarget.rating })
         .getOne()
     return res.status(200).send(updatedRating)
 }
 
 export const DeleteVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
-    await getRepository('vg_rating').createQueryBuilder()
-        .delete()
+    const uvg = await getRepository(UserVideogame).createQueryBuilder()
         .andWhere(`videogame = :videogame`, { videogame: vg.id})
-        .andWhere(`user = :user`, { user: req['user'].id})
+        .andWhere(`"user" = :user`, { user: req['user'].id})
+        .getOne()
+
+    await getRepository(Rating).createQueryBuilder()
+        .delete()
+        .andWhere(`id = :id`, { id: uvg.rating })
         .execute();
+
+
     return res.status(204).send(null)
 }
