@@ -81,8 +81,9 @@ export const TotalCompletedAndFinishedGames = async(req: Request, res: Response)
 export const Top20VideogamesEver = async(req: Request, res: Response) => {
     const query = 'select r.ranking, vg.name ' +
         'from vg_rating r ' +
-        'join vg_videogame vg on r.videogame = vg.id ' +
-        'join "user" on r.user = "user".id ' +
+        'join vg_user_videogame uvg on uvg.rating = r.id ' +
+        'join vg_videogame vg on uvg.videogame = vg.id ' +
+        'join "user" on uvg.user = "user".id ' +
         'AND "user".id = ' + req['user'].id +
         'order by r.ranking desc ' +
         'limit 20;'
