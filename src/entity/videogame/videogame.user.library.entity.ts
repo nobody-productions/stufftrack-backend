@@ -47,7 +47,7 @@ export class UserVideogame {
     @Column({primary: true})
     platform: Platform
 
-    @ManyToOne(() => Rating)
+    @ManyToOne(() => Rating, {onDelete: "SET NULL"})
     @JoinColumn({name: "rating"})
     @Column({unique: true, nullable: true})
     rating: Rating
