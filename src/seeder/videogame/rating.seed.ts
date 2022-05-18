@@ -20,9 +20,7 @@ createConnections().then(async () => {
         comment: "",
         ranking: 5,
         is_public_comment: true,
-        is_public_ranking: true,
-        user: userTarget.id,
-        videogame: vgTarget.id
+        is_public_ranking: true
     })
 
     uvg.rating = s
@@ -45,9 +43,7 @@ createConnections().then(async () => {
         comment: 'Terza generazione di pokémon: il gioco é il classico capitolo, ma qui hanno aggiunto delle cosine carine tipo la base segreta o il mago del quiz che propone enigmi. Non mi piacciono gli elementi grafici e in generale é un po troppo lento',
         ranking: 3,
         is_public_comment: true,
-        is_public_ranking: true,
-        user: userTarget,
-        videogame: vgTarget
+        is_public_ranking: true
     })
 
     uvg.rating = s2
@@ -70,9 +66,7 @@ createConnections().then(async () => {
         comment: 'Mediocre, mi aspettavo di meglio ma ci ho comunque giocato molto.',
         ranking: 3,
         is_public_comment: true,
-        is_public_ranking: true,
-        user: userTarget,
-        videogame: vgTarget
+        is_public_ranking: true
     })
 
 
