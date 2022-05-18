@@ -79,16 +79,21 @@ export const UpdateVideogameUserLibraryRating = async(req: Request, res: Respons
         return res.status(400).send(error.details);
     }
 
+    // get rating target id
+    const ratingTarget = await getRepository(UserVideogame).createQueryBuilder()
+        .andWhere({'user': req['user']})
+        .andWhere({'videogame': parseInt(req.params.id)})
+        .getOne()
+
+    // update rating
     await getRepository(Rating).createQueryBuilder()
         .update()
         .set(req.body)
-        .andWhere(`videogame = :videogame`, { videogame: parseInt(req.params.id)})
-        .andWhere(`user = :user`, { user: req['user'].id})
+        .andWhere(`id = :id`, { id: ratingTarget.rating })
         .execute();
 
-    const updatedRating = await createQueryBuilder('vg_rating', 'vg_rating')
-        .andWhere({'user': req['user']})
-        .andWhere({'videogame': parseInt(req.params.id)})
+    const updatedRating = await getRepository(Rating).createQueryBuilder()
+        .andWhere(`id = :id`, { id: ratingTarget.rating })
         .getOne()
     return res.status(200).send(updatedRating)
 }
