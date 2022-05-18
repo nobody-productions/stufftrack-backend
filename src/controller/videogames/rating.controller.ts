@@ -4,6 +4,7 @@ import {Rating} from "../../entity/videogame/rating.entity";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {User} from "../../entity/user.entity";
 import {VideogameUserLibraryRatingValidation} from "../../validation/rating.validation";
+import {UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
 
 export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const query = await
@@ -77,10 +78,16 @@ export const UpdateVideogameUserLibraryRating = async(req: Request, res: Respons
 
 export const DeleteVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const vg = await getManager().getRepository(Videogame).findOne({where: {id: parseInt(req.params.id)}})
-    await getRepository('vg_rating').createQueryBuilder()
-        .delete()
+    const uvg = await getRepository(UserVideogame).createQueryBuilder()
         .andWhere(`videogame = :videogame`, { videogame: vg.id})
-        .andWhere(`user = :user`, { user: req['user'].id})
+        .andWhere(`"user" = :user`, { user: req['user'].id})
+        .getOne()
+
+    await getRepository(Rating).createQueryBuilder()
+        .delete()
+        .andWhere(`id = :id`, { id: uvg.rating })
         .execute();
+
+
     return res.status(204).send(null)
 }
