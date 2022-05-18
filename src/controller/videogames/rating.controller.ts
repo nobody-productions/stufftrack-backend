@@ -8,10 +8,10 @@ import {UserVideogame} from "../../entity/videogame/videogame.user.library.entit
 
 export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
     const query = await
-        getRepository(Rating)
-            .createQueryBuilder("")
-            .where("Rating.videogame = :id", { id: parseInt(req.params.id) })
-            .andWhere('Rating.user = :user_id', { user_id: req['user'].id })
+        getRepository("vg_rating").createQueryBuilder()
+            .innerJoin("vg_user_videogame", "vg_user_videogame", "vg_user_videogame.rating = Rating.id")
+            .andWhere("vg_user_videogame.videogame = :id", { id: parseInt(req.params.id) })
+            .andWhere('vg_user_videogame."user" = :user_id', { user_id: req['user'].id })
             .getOne();
 
     if(query !== null) {
