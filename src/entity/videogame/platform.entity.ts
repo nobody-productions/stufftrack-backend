@@ -14,4 +14,7 @@ export class Platform {
         unique: true
     })
     codename: string;
+
+    @Column()
+    path: string;
 }
