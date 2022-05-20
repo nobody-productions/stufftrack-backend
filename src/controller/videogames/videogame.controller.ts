@@ -14,6 +14,7 @@ export const Videogames = async (req: Request, res: Response) => {
 
     const repository = getManager().getRepository(Videogame);
     const [data, total] = await repository.findAndCount({
+        order: {name: 'ASC'},
         take,
         skip: (page - 1) * take
     });
@@ -27,7 +28,7 @@ export const Videogames = async (req: Request, res: Response) => {
             .innerJoin('vg_videogame_platform', 'vg_videogame_platform', 'vg_platform.id = vg_videogame_platform.platform_id')
             .innerJoin('vg_videogame', 'vg_videogame', 'vg_videogame.id = vg_videogame_platform.videogame_id')
             .andWhere("vg_videogame.id = :id", {id: item['id']})
-
+            
         // unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
         item.platforms = await platOnly.getMany();
     }
