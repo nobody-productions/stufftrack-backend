@@ -6,101 +6,139 @@ createConnections().then(async () => {
 
     await repository.save({
         name: "Game Boy",
-        codename: "GB"
+        codename: "GB",
+        path: "images/platforms/gb.svg"
     })
 
     await repository.save({
         name: "Game Boy Color",
-        codename: "GBC"
+        codename: "GBC",
+        path: "images/platforms/gb.svg"
+
     })
 
     await repository.save({
         name: "Game Boy Advance",
-        codename: "GBA"
+        codename: "GBA",
+        path: "images/platforms/gba.svg"
+
     })
 
     await repository.save({
         name: "Nintendo DS",
-        codename: "NDS"
+        codename: "NDS",
+        path: "images/platforms/nds.svg"
+
     })
 
     await repository.save({
         name: "Nintendo 3DS",
-        codename: "3DS"
+        codename: "3DS",
+        path: "images/platforms/3ds.svg"
+
     })
 
     await repository.save({
         name: "Nintendo Wii",
-        codename: "WII"
+        codename: "WII",
+        path: "images/platforms/wii.svg"
+
     })
 
     await repository.save({
         name: "Nintendo Entertainment System",
-        codename: "NES"
+        codename: "NES",
+        path: "images/platforms/nes.svg"
+
     })
 
     await repository.save({
         name: "Virtual Boy",
-        codename: "VB"
+        codename: "VB",
+        path: "images/platforms/vb.svg"
+
     })
 
     await repository.save({
         name: "Sega Mega Drive",
-        codename: "MD"
+        codename: "MD",
+        path: "images/platforms/md.svg"
+
     })
 
     await repository.save({
         name: "Sega Master System",
-        codename: "SMS"
+        codename: "SMS",
+        path: "images/platforms/sms.svg"
+
     })
 
     await repository.save({
         name: "Sony Playstation 1",
-        codename: "PS1"
+        codename: "PS1",
+        path: "images/platforms/ps1.svg"
+
     })
 
     await repository.save({
         name: "Sony Playstation 2",
-        codename: "PS2"
+        codename: "PS2",
+        path: "images/platforms/ps2.svg"
+
     })
 
     await repository.save({
         name: "Sony Playstation 3",
-        codename: "PS3"
+        codename: "PS3",
+        path: "images/platforms/ps3.svg"
+
     })
 
     await repository.save({
         name: "Sony Playstation 4",
-        codename: "PS4"
+        codename: "PS4",
+        path: "images/platforms/ps4.svg"
+
     })
 
     await repository.save({
         name: "Sony Playstation Portable",
-        codename: "PSP"
+        codename: "PSP",
+        path: "images/platforms/ps5.svg"
+
     })
 
     await repository.save({
         name: "Xbox",
-        codename: "XBOX"
+        codename: "XBOX",
+        path: "images/platforms/xbox.svg"
+
     })
 
     await repository.save({
         name: "Xbox 360",
-        codename: "X360"
+        codename: "X360",
+        path: "images/platforms/350.svg"
+
     })
 
     await repository.save({
         name: "Xbox One",
-        codename: "XONE"
+        codename: "XONE",
+        path: "images/platforms/one.svg"
+
     })
 
     await repository.save({
         name: "PC",
-        codename: "PC"
+        codename: "PC",
+        path: "images/platforms/pc.svg"
+
     })
 
     await repository.save({
         name: "Nintendo Switch",
-        codename: "SWITCH"
+        codename: "SWITCH",
+        path: "images/platforms/switch.svg"
     })
 })
