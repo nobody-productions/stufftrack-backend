@@ -105,11 +105,15 @@ export const DeleteVideogameUserLibraryRating = async (req: Request, res: Respon
         .andWhere(`"user" = :user`, { user: req['user'].id})
         .getOne()
 
-    await getRepository(Rating).createQueryBuilder()
+    const ratingRepo = await getRepository(Rating)
+
+    // we need to check if rating exists or not
+    if(!(uvg.rating == null)) {
+        await ratingRepo.createQueryBuilder()
         .delete()
         .andWhere(`id = :id`, { id: uvg.rating })
         .execute();
-
+    }
 
     return res.status(204).send(null)
 }
