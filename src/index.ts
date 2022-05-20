@@ -13,7 +13,7 @@ createConnection().then(connection => {
     app.use(cookieParser());
     app.use(cors({
         credentials: true,      // frontend now can access cookies
-        origin: ["http://localhost:8800"]
+        origin: ["http://localhost:8080"]
     }));
 
     app.use(function(err, req, res, next) {
