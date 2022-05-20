@@ -141,4 +141,10 @@ createConnections().then(async () => {
         codename: "SWITCH",
         path: "images/platforms/switch.svg"
     })
+
+    await repository.save({
+        name: "Other platform",
+        codename: "OTHER",
+        path: "images/platforms/other.svg"
+    })
 })
