@@ -45,17 +45,15 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
 }
 
 export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
-    // mi prendo le piattaforme
-    const platOnly = await getManager().getRepository(Platform)
-        .createQueryBuilder()
-        .select('vg_platform')
-        .from(Platform, "vg_platform")
-        .innerJoin('vg_videogame_platform', 'vg_videogame_platform', 'vg_platform.id = vg_videogame_platform.platform_id')
-        .innerJoin('vg_videogame', 'vg_videogame', 'vg_videogame_platform.videogame_id = vg_videogame.id')
-        .where("vg_videogame.id = :id", { id: req.params.id })
-    const platOnlyRes = await platOnly.getMany();
+    const vg = await getRepository(Videogame).find({
+        where: {id: parseInt(req.params.id) },
+        relations: ["platforms", "developers", "genres", 'videogames']
+    });
 
-    // query normale senza piattaforme dentro il videogioco
+    console.log(vg)
+    if(vg.length == 0) {
+        return res.status(404).send({message: "Videogame not found"});
+    }
     const query = createQueryBuilder('vg_user_videogame', 'uvg')
         .innerJoinAndSelect('uvg.videogame', 'vg')
         .innerJoinAndSelect('uvg.platform', 'platform')
@@ -64,11 +62,11 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
 
     const result = await query.getOne();
 
-    // unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
-    if (result !== null)
-        result['videogame'].platform = platOnlyRes
+    if (result === null)
+        return res.status(404).send({message: "Videogame not found"});
 
-    res.status(200).send(result)
+    result['videogame'] = vg
+    return res.status(200).send(result)
 }
 
 // NOTA: crea una relationship tra gioco esistente nel db e utente loggato
