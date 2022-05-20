@@ -21,7 +21,7 @@ export class Rating {
         length: 5000})
     comment: string;
 
-    @Column({default: 0})
+    @Column({nullable: true, default: 0})
     ranking: number;
 
     @Column({default: true})
