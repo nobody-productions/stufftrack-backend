@@ -15,6 +15,8 @@ export class Platform {
     })
     codename: string;
 
-    @Column()
+    @Column({
+        default: "images/platforms/default.png"
+    })
     path: string;
 }
