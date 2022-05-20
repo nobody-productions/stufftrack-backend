@@ -5,6 +5,7 @@ import {GetUser} from "./controller/user.controller";
 import {
     CreateVideogame,
     DeleteVideogame,
+    GetVideogame,
     GetVideogameRemake, UpdateVideogame,
     Videogames
 } from "./controller/videogames/videogame.controller";
@@ -101,6 +102,7 @@ export const routes = (router: Router) => {
     router.get("/api/v1/videogames/platforms/:id", AuthMiddleware, CheckIdParamMiddleware, GetPlatform)
 
     router.get('/api/v1/libraries/videogames', AuthMiddleware, VideogameUserLibrary)
+    router.get('/api/v1/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, GetVideogame)
     router.get('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, GetVideogameUserLibrary)
     router.post('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, CreateVideogameUserLibrary)
     router.put('/api/v1/libraries/videogames/:id', AuthMiddleware, CheckIdParamMiddleware, UpdateVideogameUserLibrary)

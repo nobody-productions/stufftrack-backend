@@ -43,6 +43,21 @@ export const Videogames = async (req: Request, res: Response) => {
     });
 }
 
+export const GetVideogame = async (req: Request, res: Response) => {
+    const vg = await getRepository('vg_videogame').find({
+        where: {id: parseInt(req.params.id) },
+        relations: ['platforms'],
+    });
+
+    if(vg == null) {
+        res.status(404).send({message: "Videogame not found"});
+    }
+    else {
+        res.status(200).send(vg)
+    }
+}
+
+
 export const GetVideogameRemake = async (req: Request, res: Response) => {
     const remake = await getConnection()
         .createQueryBuilder()
