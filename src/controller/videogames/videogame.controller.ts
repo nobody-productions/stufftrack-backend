@@ -28,7 +28,7 @@ export const Videogames = async (req: Request, res: Response) => {
             .innerJoin('vg_videogame_platform', 'vg_videogame_platform', 'vg_platform.id = vg_videogame_platform.platform_id')
             .innerJoin('vg_videogame', 'vg_videogame', 'vg_videogame.id = vg_videogame_platform.videogame_id')
             .andWhere("vg_videogame.id = :id", {id: item['id']})
-            
+
         // unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
         item.platforms = await platOnly.getMany();
     }
@@ -45,9 +45,9 @@ export const Videogames = async (req: Request, res: Response) => {
 }
 
 export const GetVideogame = async (req: Request, res: Response) => {
-    const vg = await getRepository('vg_videogame').find({
+    const vg = await getRepository(Videogame).find({
         where: {id: parseInt(req.params.id) },
-        relations: ['platforms'],
+        relations: ["platforms", "developers", "genres", 'videogames']
     });
 
     if(vg == null) {
