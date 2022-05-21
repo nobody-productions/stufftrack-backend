@@ -2,6 +2,37 @@ import {Request, Response} from "express";
 import {getManager} from "typeorm";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 
+// get a remake
+export const GetRemake = async (req: Request, res: Response) => {
+    // caso base: da un gioco padre voglio sapere il gioco figlio
+    let query = 'SELECT *\n' +
+        'FROM vg_remake\n' +
+        'WHERE "original" = ' + req.params.id + ';\n'
+
+    let result = await getManager().query(query)
+
+    // if result is not empty
+    if (result.length > 0) {
+        return res.status(200).send(result)   
+    }
+
+    // caso: da un gioco figlio voglio sapere il gioco padre
+    query = 'SELECT remake, original\n' +
+    'FROM vg_remake\n' +
+    'WHERE "remake" = ' + req.params.id + ';\n'
+
+    result = await getManager().query(query)
+
+    // if result is not empty
+    if (result.length > 0) {
+        return res.status(200).send(result)   
+    }
+
+    return res.status(404).send('Remake or original, not found!')
+ }    
+
+
+
 // create a remake
 export const CreateRemake = async (req: Request, res: Response) => {
     const repository = getManager().getRepository(Videogame)

@@ -21,7 +21,7 @@ import {
     CreateVideogameUserLibraryRating, DeleteVideogameUserLibraryRating,
     GetVideogameUserLibraryRating, UpdateVideogameUserLibraryRating
 } from "./controller/videogames/rating.controller";
-import {CreateRemake, DeleteRemake} from "./controller/videogames/remake.controller";
+import {CreateRemake, DeleteRemake, GetRemake} from "./controller/videogames/remake.controller";
 import {PermissionMiddleware} from "./middleware/permission.middleware";
 import {CheckIdParamMiddleware} from "./middleware/checkidparam.middleware";
 import {
@@ -61,11 +61,12 @@ export const routes = (router: Router) => {
         - add / remove a platform
      */
     router.post("/api/v1/videogames", AuthMiddleware, PermissionMiddleware('videogames'), CreateVideogame)
-    router.put("/api/v1/videogames/:id", AuthMiddleware, PermissionMiddleware('videogames'), UpdateVideogame)
-    router.delete("/api/v1/videogames/:id", AuthMiddleware, PermissionMiddleware('videogames'), DeleteVideogame)
+    router.put("/api/v1/videogames/:id", AuthMiddleware, PermissionMiddleware('videogames'), CheckIdParamMiddleware, UpdateVideogame)
+    router.delete("/api/v1/videogames/:id", AuthMiddleware, PermissionMiddleware('videogames'), CheckIdParamMiddleware, DeleteVideogame)
 
-    router.post("/api/v1/videogames/:id/remake", AuthMiddleware, PermissionMiddleware('videogames'), CreateRemake)
-    router.delete("/api/v1/videogames/:id/remake", AuthMiddleware, PermissionMiddleware('videogames'), DeleteRemake)
+    router.get("/api/v1/videogames/:id/remake", AuthMiddleware, PermissionMiddleware('videogames'), CheckIdParamMiddleware, GetRemake)
+    router.post("/api/v1/videogames/:id/remake", AuthMiddleware, PermissionMiddleware('videogames'), CheckIdParamMiddleware, CreateRemake)
+    router.delete("/api/v1/videogames/:id/remake", AuthMiddleware, PermissionMiddleware('videogames'), CheckIdParamMiddleware, DeleteRemake)
 
     router.post("/api/v1/videogames/platforms", AuthMiddleware, PermissionMiddleware('videogames'), CreatePlatform)
     router.delete("/api/v1/videogames/platforms/:id", AuthMiddleware, PermissionMiddleware('videogames'), DeletePlatform)
