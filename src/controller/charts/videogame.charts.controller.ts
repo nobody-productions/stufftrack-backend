@@ -93,7 +93,7 @@ export const Top20VideogamesEver = async(req: Request, res: Response) => {
     return res.status(200).send(result)
 }
 
-export const TotalBought = async(req: Request, res: Response) => {
+export const TotalVideogamesBought = async(req: Request, res: Response) => {
     const query = ' SELECT COUNT(*)\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -123,7 +123,7 @@ export const TotalVideogamesEver = async(req: Request, res: Response) => {
 }
 
 // piattaforma sul quale hai finito o completato più cose
-export const TopPlatform = async(req: Request, res: Response) => {
+export const TopVideogamePlatform = async(req: Request, res: Response) => {
     const query = 'SELECT vg_platform.name "platform", COUNT(vg_videogame.name) "number of games"\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -141,7 +141,7 @@ export const TopPlatform = async(req: Request, res: Response) => {
 }
 
 // piattaforma sul quale hai più videogiochi (tranne quelli ancora da giocare)
-export const MostUsedPlatform = async(req: Request, res: Response) => {
+export const MostUsedVideogamePlatform = async(req: Request, res: Response) => {
     const query = 'SELECT vg_platform.name "platform", COUNT(vg_videogame.name) "number of games"\n' +
         'FROM vg_user_videogame\n' +
         'JOIN vg_videogame ON vg_videogame.id = vg_user_videogame.videogame\n' +
@@ -160,7 +160,7 @@ export const MostUsedPlatform = async(req: Request, res: Response) => {
     return res.status(200).send(result)
 }
 
-export const TotalHours = async(req: Request, res: Response) => {
+export const TotalVideogamesHours = async(req: Request, res: Response) => {
     const query = ' SELECT SUM(hours) "total"\n' +
         'FROM vg_user_videogame uvg\n' +
         'WHERE uvg.user = ' + req['user'].id + ';\n'
