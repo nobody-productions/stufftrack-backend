@@ -11,12 +11,7 @@ export class Platform {
     name: string;
 
     @Column({
-        unique: true
-    })
-    codename: string;
-
-    @Column({
-        default: "images/platforms/default.png"
+        default: "images/books/platforms/default.png"
     })
     path: string;
 }

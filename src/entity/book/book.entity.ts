@@ -24,9 +24,11 @@ export class Book {
     @Column()
     year: number
 
-    @Column({default: "/images/videogames/cover/default_videogame.png"})
+    @Column({default: "/images/books/cover/default_book.png"})
     image: string
 
+    // TODO: aggiungere casa produttrice? Non stiamo considerando le ristampe, quindi non credo sia una buona idea. 
+    
     @ManyToMany(() => Platform)
     @JoinTable({
         name: 'bk_book_platform',

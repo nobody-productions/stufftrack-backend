@@ -4,22 +4,19 @@ import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 export class Author {
     @PrimaryGeneratedColumn()
     @Column({unique: true})
+    @PrimaryColumn()
     id: number;
 
     @Column({})
-    @PrimaryColumn()
     name: string;
 
     @Column({})
-    @PrimaryColumn()
     surname: string;
 
-    @Column({unique: true})
-    @PrimaryColumn()
+    @Column({unique: true, nullable: true})
     nickname: string;
 
     // semplificazione: normalmente si crea una tabella separata per la nazione con una lista di paesi 
-    @Column({unique: true})
-    @PrimaryColumn()
+    @Column({nullable: true})
     country: string;
 }
