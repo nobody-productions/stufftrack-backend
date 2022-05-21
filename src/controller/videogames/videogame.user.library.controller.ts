@@ -48,7 +48,6 @@ export const GetVideogameUserLibrary = async (req: Request, res: Response) => {
         relations: ["platforms", "developers", "genres", 'videogames']
     });
 
-    console.log(vg)
     if(vg.length == 0) {
         return res.status(404).send({message: "Videogame not found"});
     }
