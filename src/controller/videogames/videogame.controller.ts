@@ -14,6 +14,7 @@ export const Videogames = async (req: Request, res: Response) => {
 
     const repository = getManager().getRepository(Videogame);
     const [data, total] = await repository.findAndCount({
+        relations: ['platforms', 'developers', 'genres', 'videogames'],
         order: {name: 'ASC'},
         take,
         skip: (page - 1) * take
@@ -21,6 +22,7 @@ export const Videogames = async (req: Request, res: Response) => {
 
     // mi prendo le piattaforme
     for (const item of data) {
+        // todo:risistemare query, aggiungere relations
         const platOnly = await getManager().getRepository(Platform)
             .createQueryBuilder()
             .select('vg_platform')

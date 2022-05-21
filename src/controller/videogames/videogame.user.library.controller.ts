@@ -24,16 +24,14 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
     // mi prendo le piattaforme
     // e unisco le due cose: piattaforme sul quale il gioco é uscito + videogioco stesso
     for(let i = 0; i < data.length; i++) {
-        data[i]['videogame'].platforms = await getManager().getRepository(Platform)
-            .createQueryBuilder()
-            .select('vg_platform')
-            .from(Platform, "vg_platform")
-            .innerJoin('vg_videogame_platform', 'vg_videogame_platform', 'vg_platform.id = vg_videogame_platform.platform_id')
-            .innerJoin('vg_videogame', 'vg_videogame', 'vg_videogame.id = vg_videogame_platform.videogame_id')
-            .andWhere("vg_videogame.id = :id", {id: data[i]['videogame']['id']})
-            .getMany();
+        let vg = <Videogame> <unknown> await getManager().getRepository(Videogame).
+            findOne({
+                where: {id: data[i]['videogame']['id']},
+                relations: ["platforms", "developers", "genres", 'videogames'],
+            });
+        data[i]['videogame'] = vg;
     }
-
+    
     res.send({
         data,
         meta: {
