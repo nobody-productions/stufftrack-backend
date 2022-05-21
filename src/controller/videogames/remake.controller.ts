@@ -5,7 +5,7 @@ import {Videogame} from "../../entity/videogame/videogame.entity";
 // get a remake
 export const GetRemake = async (req: Request, res: Response) => {
     // caso base: da un gioco padre voglio sapere il gioco figlio
-    let query = 'SELECT *\n' +
+    let query = 'SELECT remake\n' +
         'FROM vg_remake\n' +
         'WHERE "original" = ' + req.params.id + ';\n'
 
@@ -17,7 +17,7 @@ export const GetRemake = async (req: Request, res: Response) => {
     }
 
     // caso: da un gioco figlio voglio sapere il gioco padre
-    query = 'SELECT remake, original\n' +
+    query = 'SELECT original\n' +
     'FROM vg_remake\n' +
     'WHERE "remake" = ' + req.params.id + ';\n'
 
