@@ -1,5 +1,5 @@
 {
-  "name": "stuff-tracker-backend",
+  "name": "stufftrack-backend",
   "version": "1.0.0",
   "description": "A simple backend for StuffTracker.",
   "main": "index.js",
