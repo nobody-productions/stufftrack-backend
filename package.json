@@ -25,7 +25,7 @@
     "seed:bk-rating": "ts-node src/seeder/book/rating.seed.ts",
     "seed:bk-user-lib": "ts-node src/seeder/book/book.library.seed.ts",
     "bk-populate": "npm run seed:bk-platform && npm run seed:bk-author && npm run seed:bk-genre && npm run seed:bk-book && npm run seed:bk-user-lib && npm run seed:bk-rating",
-    "full-populate": "npm run seed:role && npm run seed:user && npm run seed:vg-platform && npm run seed:vg-developer && npm run seed:vg-genre && npm run seed:vg-videogame && npm run seed:vg-remake && npm run seed:vg-user-lib && npm run seed:vg-rating npm run seed:bk-platform && npm run seed:bk-author && npm run seed:bk-genre && npm run seed:bk-book && npm run seed:bk-user-lib && npm run seed:bk-rating"
+    "full-populate": "npm run seed:role && npm run seed:user && npm run seed:vg-platform && npm run seed:vg-developer && npm run seed:vg-genre && npm run seed:vg-videogame && npm run seed:vg-remake && npm run seed:vg-user-lib && npm run seed:vg-rating && npm run seed:bk-platform && npm run seed:bk-author && npm run seed:bk-genre && npm run seed:bk-book && npm run seed:bk-user-lib && npm run seed:bk-rating"
   },
   "keywords": [],
   "author": "Damiano Gualandri",
@@ -55,6 +55,7 @@
     "json2csv": "^5.0.7",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
+    "npm": "^8.10.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.6"
