@@ -26,7 +26,6 @@ export const UserLibraryBooks = async (req: Request, res: Response) => {
                 relations: ["platforms", "authors", "genres"],
             });
         data[i]['book'] = bk;
-        console.log(bk)
     }
     
     res.send({

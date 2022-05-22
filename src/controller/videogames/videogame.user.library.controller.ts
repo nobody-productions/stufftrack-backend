@@ -30,7 +30,6 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
                 relations: ["platforms", "developers", "genres", 'videogames'],
             });
         data[i]['videogame'] = vg;
-        console.log(vg)
     }
     
     res.send({
