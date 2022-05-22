@@ -17,17 +17,17 @@ export const UserLibraryBooks = async (req: Request, res: Response) => {
         skip: (page - 1) * take,
     });
 
-    // mi prendo le piattaforme
-    // e unisco le due cose: piattaforme sul quale il libro é uscito + libro stesso
+    // mi prendo i libri
+    // e unisco le due cose: libro + libro libreria
     for(let i = 0; i < data.length; i++) {
         let bk = <Book> <unknown> await getManager().getRepository(Book).
-            findOne({
-                where: {id: data[i]['book']['id']},
-                relations: ["platforms", "authors", "genres"],
-            });
+        findOne({
+            where: {id: <number> <unknown> (data[i]['book'])},
+            relations: ["platforms", "authors", "genres"],
+        });
         data[i]['book'] = bk;
     }
-    
+
     res.send({
         data,
         meta: {
@@ -130,7 +130,7 @@ export const DeleteUserLibraryBook = async(req: Request, res: Response) => {
 
     if(bk == undefined) {
         return res.status(404).send({message: "game not found!"})
-    } 
+    }
 
     await getRepository(UserLibraryBook).createQueryBuilder()
         .delete()
