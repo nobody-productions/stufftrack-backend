@@ -37,8 +37,12 @@ import {
     TotalBought,
     TotalVideogamesEver, TotalHours,
 } from "./controller/charts/videogame.charts.controller";
+import { CreateGuestMessage } from "./controller/guest.message.controller";
 
 export const routes = (router: Router) => {
+    // external route: guest will use this route
+    router.post("/api/v1/send-email", CreateGuestMessage);
+
     /*
         BASIC ROUTES
         - login, logout, register
