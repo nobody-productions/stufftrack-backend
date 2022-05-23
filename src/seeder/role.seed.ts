@@ -5,7 +5,7 @@ import { Role } from "../entity/role.entity";
 createConnection().then(async connection => {
     const permissionRepository = getManager().getRepository(Permission);
 
-    const perms = ['view_users', 'edit_users', 'view_roles', 'edit_roles', 'view_videogames', 'edit_videogames']
+    const perms = ['view_users', 'edit_users', 'view_roles', 'edit_roles', 'view_videogames', 'edit_videogames', 'view_books', 'edit_books']
     let permissions = [];
 
     for (let i = 0; i < perms.length; i++) {
@@ -23,6 +23,7 @@ createConnection().then(async connection => {
     delete permissions[3];  // edit_roles
     delete permissions[1];  // edit_users
     delete permissions[5];  // edit_products
+    delete permissions[7];  // edit_books
 
     await roleRepository.save({
         name: 'Viewer',
