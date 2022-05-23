@@ -31,13 +31,40 @@ import {
     TotalFinishedGames,
     TotalNowPlayingGames,
     TotalToPlayGames,
-    MostUsedPlatform,
+    MostUsedVideogamePlatform,
     Top20VideogamesEver,
-    TopPlatform,
-    TotalBought,
-    TotalVideogamesEver, TotalHours,
+    TopVideogamePlatform,
+    TotalVideogamesBought,
+    TotalVideogamesEver, TotalVideogamesHours,
 } from "./controller/charts/videogame.charts.controller";
 import { CreateGuestMessage } from "./controller/guest.message.controller";
+import {Books, CreateBook, DeleteBook, GetBook, UpdateBook} from "./controller/book/book.controller";
+import {
+    BookPlatforms,
+    CreateBookPlatform,
+    DeleteBookPlatform,
+    GetBookPlatform
+} from "./controller/book/platform.controller";
+import {
+    CreateUserLibraryBook, DeleteUserLibraryBook,
+    GetUserLibraryBook, UpdateUserLibraryBook,
+    UserLibraryBooks
+} from "./controller/book/book.user.library.controller";
+import {
+    CreateUserLibraryBookRating, DeleteUserLibraryBookRating,
+    GetUserLibraryBookRating,
+    UpdateUserLibraryBookRating
+} from "./controller/book/rating.controller";
+import {BookStatus} from "./entity/book/book.user.library.entity";
+import {
+    MostUsedBookPlatform,
+    Top20BooksEver, TopBookPlatform,
+    TotalAbandonedBooks, TotalBooksBought,
+    TotalBooksEver, TotalBooksHours,
+    TotalCompletedBooks,
+    TotalNowPlayingBooks,
+    TotalToPlayBooks
+} from "./controller/charts/books.charts.controller";
 
 export const routes = (router: Router) => {
     // external route: guest will use this route
@@ -127,8 +154,76 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/videogames/charts/completed-and-finished', AuthMiddleware, TotalCompletedAndFinishedGames)
     router.get('/api/v1/libraries/videogames/charts/total', AuthMiddleware, TotalVideogamesEver)
     router.get('/api/v1/libraries/videogames/charts/top-20', AuthMiddleware, Top20VideogamesEver)
-    router.get('/api/v1/libraries/videogames/charts/top-platform', AuthMiddleware, TopPlatform)
-    router.get('/api/v1/libraries/videogames/charts/most-used-platform', AuthMiddleware, MostUsedPlatform)
-    router.get('/api/v1/libraries/videogames/charts/total-bought', AuthMiddleware, TotalBought)
-    router.get('/api/v1/libraries/videogames/charts/total-hours', AuthMiddleware, TotalHours)
+    router.get('/api/v1/libraries/videogames/charts/top-platform', AuthMiddleware, TopVideogamePlatform)
+    router.get('/api/v1/libraries/videogames/charts/most-used-platform', AuthMiddleware, MostUsedVideogamePlatform)
+    router.get('/api/v1/libraries/videogames/charts/total-bought', AuthMiddleware, TotalVideogamesBought)
+    router.get('/api/v1/libraries/videogames/charts/total-hours', AuthMiddleware, TotalVideogamesHours)
+
+    /* ============================= */
+    /*
+        ADMIN ROUTES
+        - add / edit / remove a book (from the local db)
+        - add / remove a book platform
+    */
+
+    router.post("/api/v1/books", AuthMiddleware, PermissionMiddleware('books'), CreateBook)
+    router.put("/api/v1/books/:id", AuthMiddleware, PermissionMiddleware('books'), CheckIdParamMiddleware, UpdateBook)
+    router.delete("/api/v1/books/:id", AuthMiddleware, PermissionMiddleware('books'), CheckIdParamMiddleware, DeleteBook)
+
+    router.post("/api/v1/books/platforms", AuthMiddleware, PermissionMiddleware('books'), CreateBookPlatform)
+    router.delete("/api/v1/books/platforms/:id", AuthMiddleware, PermissionMiddleware('books'), DeleteBookPlatform)
+
+
+    /*
+        BOOKS INTEGRATION - GENERAL
+        - retrieve all books in db
+        - given a book id, get the original and the remake ids
+        - retrieve all book platforms in db
+        - get a specific platform
+
+        BOOKS INTEGRATION - USER LIBRARY
+        - retrieve all books in user library
+        - retrieve a specific book in user library
+        - add / edit / remove a specific book in user library
+
+        BOOKS INTEGRATION - RATING
+        - get the rating of a specific book in user library
+        - add / edit / remove the rating of a specific book in user library
+
+        BOOKS INTEGRATION - CHARTS
+        - total number of finished, 'to play', abandoned, now reading, books
+        - total number of books in user library
+        - top 20 books ever: books with the highest ranking in user library
+        - top platform: where user has finished most books
+        - most used platform: where user has done anything (but 'to play')
+        - total bought: the number of bought books by the user
+        - total hours: the number of total hours the user spent while reading
+    */
+    router.get("/api/v1/books", AuthMiddleware, Books)
+    router.get("/api/v1/books/platforms", AuthMiddleware, BookPlatforms)
+    router.get("/api/v1/books/platforms/:id", AuthMiddleware, CheckIdParamMiddleware, GetBookPlatform)
+
+    router.get('/api/v1/libraries/books', AuthMiddleware, UserLibraryBooks)
+    router.get('/api/v1/books/:id', AuthMiddleware, CheckIdParamMiddleware, GetBook)
+    router.get('/api/v1/libraries/books/:id', AuthMiddleware, CheckIdParamMiddleware, GetUserLibraryBook)
+    router.post('/api/v1/libraries/books/:id', AuthMiddleware, CheckIdParamMiddleware, CreateUserLibraryBook)
+    router.put('/api/v1/libraries/books/:id', AuthMiddleware, CheckIdParamMiddleware, UpdateUserLibraryBook)
+    router.delete('/api/v1/libraries/books/:id', AuthMiddleware, CheckIdParamMiddleware, DeleteUserLibraryBook)
+
+    router.get('/api/v1/libraries/books/:id/rating', AuthMiddleware, CheckIdParamMiddleware, GetUserLibraryBookRating)
+    router.post('/api/v1/libraries/books/:id/rating', AuthMiddleware, CheckIdParamMiddleware, CreateUserLibraryBookRating)
+    router.put('/api/v1/libraries/books/:id/rating', AuthMiddleware, CheckIdParamMiddleware, UpdateUserLibraryBookRating)
+    router.delete('/api/v1/libraries/books/:id/rating', AuthMiddleware, CheckIdParamMiddleware, DeleteUserLibraryBookRating)
+
+    // all charts refer to the logged user
+    router.get('/api/v1/libraries/books/charts/completed', AuthMiddleware, TotalCompletedBooks)
+    router.get('/api/v1/libraries/books/charts/to-read', AuthMiddleware, TotalToPlayBooks)
+    router.get('/api/v1/libraries/books/charts/abandoned', AuthMiddleware, TotalAbandonedBooks)
+    router.get('/api/v1/libraries/books/charts/now-reading', AuthMiddleware, TotalNowPlayingBooks)
+    router.get('/api/v1/libraries/books/charts/total', AuthMiddleware, TotalBooksEver)
+    router.get('/api/v1/libraries/books/charts/top-20', AuthMiddleware, Top20BooksEver)
+    router.get('/api/v1/libraries/books/charts/top-platform', AuthMiddleware, TopBookPlatform)
+    router.get('/api/v1/libraries/books/charts/most-used-platform', AuthMiddleware, MostUsedBookPlatform)
+    router.get('/api/v1/libraries/books/charts/total-bought', AuthMiddleware, TotalBooksBought)
+    router.get('/api/v1/libraries/books/charts/total-hours', AuthMiddleware, TotalBooksHours)
 }

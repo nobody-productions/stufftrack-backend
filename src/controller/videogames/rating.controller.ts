@@ -3,7 +3,7 @@ import {createQueryBuilder, getManager, getRepository} from "typeorm";
 import {Rating} from "../../entity/videogame/rating.entity";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {User} from "../../entity/user.entity";
-import {VideogameUserLibraryRatingValidation} from "../../validation/rating.validation";
+import {RatingValidation} from "../../validation/rating.validation";
 import {UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
 
 export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
@@ -23,7 +23,7 @@ export const GetVideogameUserLibraryRating = async (req: Request, res: Response)
 
 export const CreateVideogameUserLibraryRating = async(req: Request, res: Response) => {
     // chk: errori in input
-    const {error} = VideogameUserLibraryRatingValidation.validate(req.body);
+    const {error} = RatingValidation.validate(req.body);
     if(error) {
         return res.status(400).send(error.details);
     }
@@ -74,7 +74,7 @@ export const CreateVideogameUserLibraryRating = async(req: Request, res: Respons
 
 export const UpdateVideogameUserLibraryRating = async(req: Request, res: Response) => {
     // chk: errori in input
-    const {error} = VideogameUserLibraryRatingValidation.validate(req.body);
+    const {error} = RatingValidation.validate(req.body);
     if(error) {
         return res.status(400).send(error.details);
     }

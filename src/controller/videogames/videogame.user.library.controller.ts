@@ -30,7 +30,6 @@ export const VideogameUserLibrary = async (req: Request, res: Response) => {
                 relations: ["platforms", "developers", "genres", 'videogames'],
             });
         data[i]['videogame'] = vg;
-        console.log(vg)
     }
     
     res.send({
@@ -87,9 +86,16 @@ export const CreateVideogameUserLibrary = async(req: Request, res: Response) => 
 
     let videogame: any
     try {
+        // chk duplicati
+        videogame = await repository.findOne({where: {user: req.body.user, videogame: req.body.videogame}});
+        // check if videogame is not null
+        if(videogame !== null) {
+            return res.status(400).send({message: "error while saving, make sure you didn't already saved this game and try again"});
+        }
+
         videogame = await repository.save(req.body);
     } catch (error) {
-        return res.status(400).send({message: "error while saving, make sure you didn't already saved this game and try again"});
+        return res.status(400).send({message: "error while saving, try later!"});
     }
 
     return res.status(201).send(videogame);
