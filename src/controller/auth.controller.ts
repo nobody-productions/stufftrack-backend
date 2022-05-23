@@ -31,7 +31,7 @@ export const Register = async (req: Request, res: Response) => {
         propic: body.propic || "",   // @TODO: dare la possibilitá di uploadare una foto all'utente
         bio: body.bio || "",
         active: true,       // @TODO: quando verrá implementato per bene, cambiarlo a false. Un utente diventa true SSE viene cliccata la mail di conferma.
-        role: body.id       // TODO: rivedere questo.
+        role: body.id       // TODO: fixato in una maniera brutta -> forzo una richiesta dal frontend su body.id passandogli 2 e poi controllo col validator se é effettivamente 2.
 
         }
     );

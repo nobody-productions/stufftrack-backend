@@ -7,5 +7,6 @@ export const RegisterValidation = Joi.object({
     password_confirm: Joi.string().required(),
     nickname: Joi.string().min(3).max(24),
     // TODO: propic
-    bio: Joi.string().min(1).max(1000)
+    bio: Joi.string().min(1).max(1000),
+    id: Joi.number().min(2).max(2)
 })
