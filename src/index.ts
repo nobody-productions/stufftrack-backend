@@ -16,6 +16,7 @@ createConnection().then(connection => {
         origin: ["http://localhost:8080"]
     }));
 
+    // chk: bad json
     app.use(function(err, req, res, next) {
         res.status(500).send({message: 'oh-oh, something\'s wrong!'});
     });
