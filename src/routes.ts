@@ -37,6 +37,7 @@ import {
     TotalVideogamesBought,
     TotalVideogamesEver, TotalVideogamesHours,
 } from "./controller/charts/videogame.charts.controller";
+import { CreateGuestMessage } from "./controller/guest.message.controller";
 import {Books, CreateBook, DeleteBook, GetBook, UpdateBook} from "./controller/book/book.controller";
 import {
     BookPlatforms,
@@ -66,6 +67,9 @@ import {
 } from "./controller/charts/books.charts.controller";
 
 export const routes = (router: Router) => {
+    // external route: guest will use this route
+    router.post("/api/v1/send-email", CreateGuestMessage);
+
     /*
         BASIC ROUTES
         - login, logout, register
@@ -222,7 +226,4 @@ export const routes = (router: Router) => {
     router.get('/api/v1/libraries/books/charts/most-used-platform', AuthMiddleware, MostUsedBookPlatform)
     router.get('/api/v1/libraries/books/charts/total-bought', AuthMiddleware, TotalBooksBought)
     router.get('/api/v1/libraries/books/charts/total-hours', AuthMiddleware, TotalBooksHours)
-
-
-
 }
