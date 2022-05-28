@@ -19,7 +19,6 @@ export const Books = async (req: Request, res: Response) => {
 
     // mi prendo le piattaforme
     for (const item of data) {
-        // todo:risistemare query, aggiungere relations
         const platOnly = await getManager().getRepository(Platform)
             .createQueryBuilder()
             .select('bk_platform')
