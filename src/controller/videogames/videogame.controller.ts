@@ -5,7 +5,7 @@ import {Platform} from "../../entity/videogame/platform.entity";
 import {
     CreateVideogameValidation,
     UpdateVideogameValidation,
-} from "../../validation/videogame.validation";
+} from "../../validation/videogame/videogame.validation";
 
 // get all videogames
 export const Videogames = async (req: Request, res: Response) => {
