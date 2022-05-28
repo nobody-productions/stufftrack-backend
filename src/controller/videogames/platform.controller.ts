@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {getManager} from "typeorm";
 import {Platform} from "../../entity/videogame/platform.entity";
-import {Videogame} from "../../entity/videogame/videogame.entity";
 
 // get all platforms
 export const Platforms = async (req: Request, res: Response) => {

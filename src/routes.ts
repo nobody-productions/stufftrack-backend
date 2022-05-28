@@ -55,7 +55,7 @@ import {
     GetUserLibraryBookRating,
     UpdateUserLibraryBookRating
 } from "./controller/book/rating.controller";
-import {BookStatus} from "./entity/book/book.user.library.entity";
+
 import {
     MostUsedBookPlatform,
     Top20BooksEver, TopBookPlatform,

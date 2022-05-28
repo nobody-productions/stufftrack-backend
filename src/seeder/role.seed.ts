@@ -2,7 +2,7 @@ import {createConnection, getManager} from "typeorm";
 import { Permission } from "../entity/permission.entity";
 import { Role } from "../entity/role.entity";
 
-createConnection().then(async connection => {
+createConnection().then(async () => {
     const permissionRepository = getManager().getRepository(Permission);
 
     const perms = ['view_users', 'edit_users', 'view_roles', 'edit_roles', 'view_videogames', 'edit_videogames', 'view_books', 'edit_books']

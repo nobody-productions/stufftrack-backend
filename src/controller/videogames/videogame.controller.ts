@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
+import {getConnection, getManager, getRepository} from "typeorm";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {Platform} from "../../entity/videogame/platform.entity";
 import {

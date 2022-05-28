@@ -2,14 +2,9 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
-    ManyToOne,
-    PrimaryColumn,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
-import { User } from "../user.entity";
-import {Videogame} from "./videogame.entity";
 
 @Entity({name: 'vg_rating'})
 export class Rating {

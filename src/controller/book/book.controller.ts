@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {createQueryBuilder, getConnection, getManager, getRepository} from "typeorm";
+import {getManager, getRepository} from "typeorm";
 import {Platform} from "../../entity/book/platform.entity";
 import {Book} from "../../entity/book/book.entity";
 import { CreateBookValidation, UpdateBookValidation } from "../../validation/book/book.validation";

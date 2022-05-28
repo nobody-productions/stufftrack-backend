@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import {createQueryBuilder, getManager, getRepository} from "typeorm";
 import {UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
 import { Videogame } from "../../entity/videogame/videogame.entity";
-import {Platform} from "../../entity/videogame/platform.entity";
 import {
     VideogameUserLibraryValidation
 } from "../../validation/videogame/videogame.user.library.validation";
