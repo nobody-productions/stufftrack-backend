@@ -3,7 +3,7 @@ import {getManager, getRepository} from "typeorm";
 import {Rating} from "../../entity/videogame/rating.entity";
 import {Videogame} from "../../entity/videogame/videogame.entity";
 import {User} from "../../entity/user.entity";
-import {RatingValidation} from "../../validation/videogame/rating.validation";
+import {RatingValidation} from "../../validation/rating.validation";
 import {UserVideogame} from "../../entity/videogame/videogame.user.library.entity";
 
 export const GetVideogameUserLibraryRating = async (req: Request, res: Response) => {
