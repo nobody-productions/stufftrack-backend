@@ -91,9 +91,9 @@ export const UpdateBook = async(req: Request, res: Response) => {
         .set(req.body)
         .andWhere(`id = :id`, { id: parseInt(req.params.id)})
         .execute();
-    const actualV = await getManager().getRepository(Book).findOne({where: {id: parseInt(req.params.id)}})
+    const actualB = await getManager().getRepository(Book).findOne({where: {id: parseInt(req.params.id)}})
 
-    return res.status(200).send(actualV)
+    return res.status(200).send(actualB)
 }
 
 export const DeleteBook = async(req: Request, res: Response) => {
