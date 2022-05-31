@@ -52,6 +52,7 @@ L'url da anteporre prima di tutte le richieste é: `/api/v1/`
     - `GET` `/libraries/videogames/charts/top-platform` `(restituisce la piattaforma dove l'utente ha finito piu giochi)`
     - `GET` `/libraries/videogames/charts/most-used-platform` `(restituisce la piattaforma dove l'utente ha inserito piu giochi, esclusi quelli 'da giocare')`
     - `GET` `/libraries/videogames/charts/total-bought` `(restituisce il numero di giochi acquistati dall'utente)`
+    - `GET` `/libraries/videogames/charts/total-hours` `(restituisce le ore totali di gioco dell'utente)`
 ----------------------------------
 ### Autenticazione
 <details>
@@ -896,7 +897,7 @@ Queste route possono essere utilizzate dagli utenti loggati.
 
 
 <details>
-<summary><code>GET</code> <code>/libraries/videogames/charts/total-hours</code> <code>(numero totale di ore inserite dall'utente)</code></summary>
+<summary><code>GET</code> <code>/libraries/videogames/charts/total-hours</code> <code>(numero totale di ore di gioco dell'utente)</code></summary>
 
 ##### Parametri (URL)
 > | nome             | tipo              | obbligatorio             | descrizione           |
@@ -915,3 +916,6 @@ Queste route possono essere utilizzate dagli utenti loggati.
 > | 200 | json fatto in questo modo: {'count': numero} |
 
 </details>
+
+## Libri
+Per la parte relativa ai libri basta andare a cambiare gli url e anziché scrivere "videogames", scrivere books.
