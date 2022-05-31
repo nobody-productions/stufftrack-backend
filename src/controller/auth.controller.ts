@@ -24,6 +24,12 @@ export const Register = async (req: Request, res: Response) => {
 
     const repository = getManager().getRepository(User);
 
+    // chk: utente esiste giá
+    const userTarget = await repository.findOne({where: {"email": body.email}})
+    if(userTarget != null) {
+        return res.status(400).send({message: "user already exists!"})
+    }
+
     const {password, ...user} = await repository.save({
         email: body.email,
         password: await bcryptjs.hash(body.password, 10),
