@@ -35,9 +35,9 @@ It will be easier for you, and you won't spend a lot of time to figure out what'
 7. **Launch a PR**: if everything's ready, we can integrate another module. Yay! ✨
 
 ## Documentation
-See [DOCUMENTATION.ENG.md](DOCUMENTATION.ENG.md) (needs to be translated from italian).
+See [documentation](DOCUMENTATION.ENG.md) to know what's going on (needs to be translated from italian).
 
-If you're italian, take a look to: [DOCUMENTATION.ENG.md](DOCUMENTATION.ENG.md)
+If you're italian, take a look to: [italian documentation](DOCUMENTATION.ITA.md).
 
 ## License
 Everything is under AGPL, see LICENSE to learn more.
